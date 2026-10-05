@@ -168,6 +168,210 @@ button {
     letter-spacing: 2px;
     margin-top: 28px;
 }
+    /* =========================================
+   MOBILE / RESPONSIVE FIX
+========================================= */
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.terminal {
+    min-width: 0;
+}
+
+p,
+.clue,
+.box,
+button {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+@media (max-width: 600px) {
+
+    body {
+        display: block;
+        padding: 10px;
+        min-height: 100dvh;
+    }
+
+    .terminal {
+        width: 100%;
+        max-width: 100%;
+        min-height: calc(100dvh - 20px);
+
+        padding: 65px 14px 24px;
+
+        border-width: 1px;
+        border-radius: 9px;
+    }
+
+    /* dugme za zvuk */
+    .sound {
+        top: 10px;
+        right: 10px;
+
+        width: auto;
+        max-width: 120px;
+
+        padding: 7px 9px;
+
+        font-size: 10px;
+    }
+
+    .top-secret {
+        font-size: 11px;
+        letter-spacing: 3px;
+    }
+
+    h1 {
+        font-size: clamp(26px, 10vw, 38px);
+        letter-spacing: 2px;
+        line-height: 1.1;
+        margin-top: 12px;
+    }
+
+    .mission {
+        font-size: 13px;
+        letter-spacing: 2px;
+    }
+
+    .divider {
+        margin: 20px 0;
+    }
+
+    p {
+        font-size: 16px;
+        line-height: 1.55;
+    }
+
+    .box {
+        padding: 15px 12px;
+        margin: 16px 0;
+    }
+
+    .clue {
+        padding: 16px 12px;
+        margin: 15px 0;
+
+        font-size: 16px;
+        line-height: 1.55;
+    }
+
+    button {
+        width: 100%;
+
+        padding: 15px 10px;
+
+        font-size: 15px;
+        line-height: 1.35;
+
+        white-space: normal;
+    }
+
+    .main-button {
+        font-size: 16px;
+    }
+
+    /* TIMER */
+
+    .timer {
+        font-size: clamp(48px, 19vw, 72px);
+        margin: 15px 0;
+        line-height: 1;
+    }
+
+    /* SEKVENCA ▲ ● ★ ■ */
+
+    .symbols {
+        width: 100%;
+
+        font-size: clamp(31px, 11vw, 48px);
+
+        letter-spacing: 3px;
+
+        margin: 25px 0;
+
+        white-space: nowrap;
+    }
+
+    .symbolButtons {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .symbolButtons button {
+        min-width: 0;
+
+        padding: 15px 5px;
+
+        font-size: 28px;
+    }
+
+    .sequenceDisplay {
+        width: 100%;
+
+        min-height: 60px;
+
+        padding: 12px 5px;
+
+        font-size: clamp(24px, 9vw, 32px);
+
+        letter-spacing: 2px;
+
+        overflow: hidden;
+    }
+
+    .small {
+        font-size: 9px;
+        letter-spacing: 1px;
+    }
+
+}
+
+
+/* baš mali telefoni */
+
+@media (max-width: 380px) {
+
+    body {
+        padding: 6px;
+    }
+
+    .terminal {
+        min-height: calc(100dvh - 12px);
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    h1 {
+        font-size: 27px;
+        letter-spacing: 1px;
+    }
+
+    .top-secret {
+        letter-spacing: 2px;
+    }
+
+    p,
+    .clue {
+        font-size: 15px;
+    }
+
+    .symbols {
+        font-size: 32px;
+        letter-spacing: 1px;
+    }
+
+    .symbolButtons button {
+        font-size: 25px;
+    }
+}
 </style>
 </head>
 
@@ -499,7 +703,7 @@ button {
         AGENT 07.
     </p>
 
-</div>
+
 
     <p>
         Čekajte instrukcije za
