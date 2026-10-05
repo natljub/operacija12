@@ -187,12 +187,25 @@ button:hover {
 
     </div>
 
-    <button
-        class="main-button"
-        onclick="startMission()"
-    >
-        ▶ POKRENI MISIJU
-    </button>
+ <button
+    id="soundButton"
+    class="main-button"
+    onclick="enableSound()"
+>
+    🔊 UKLJUČI ZVUK
+</button>
+
+<button
+    id="startButton"
+    class="main-button hidden"
+    onclick="startMission()"
+>
+    ▶ POKRENI MISIJU
+</button>
+
+<p id="soundStatus" class="hidden green">
+    ✓ ZVUK AKTIVIRAN
+</p>
 
 </div>
 
@@ -596,7 +609,36 @@ function getAudioContext() {
 
     return audioContext;
 }
+function enableSound() {
 
+    const ctx = getAudioContext();
+
+    ctx.resume().then(function() {
+
+        // TEST ZVUK - tri jasna tona
+        tone(500, 0.20, 0.3, "sine");
+
+        setTimeout(function() {
+            tone(750, 0.20, 0.3, "sine");
+        }, 250);
+
+        setTimeout(function() {
+            tone(1000, 0.30, 0.3, "sine");
+        }, 500);
+
+        document
+            .getElementById("soundButton")
+            .classList.add("hidden");
+
+        document
+            .getElementById("startButton")
+            .classList.remove("hidden");
+
+        document
+            .getElementById("soundStatus")
+            .classList.remove("hidden");
+    });
+}
 
 function tone(
     frequency,
@@ -873,16 +915,6 @@ function startMission() {
     /*
        Kratak start signal
     */
-
-    tone(500, 0.1, 0.1);
-
-    setTimeout(function() {
-        tone(750, 0.1, 0.1);
-    }, 120);
-
-    setTimeout(function() {
-        tone(1000, 0.18, 0.12);
-    }, 240);
 
     startBackgroundMusic();
 
