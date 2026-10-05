@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Operacija 12 — Korak 02</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top, #300000 0%, #100000 35%, #030303 75%);
+    color: #f4e6bd;
+    font-family: "Courier New", monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.terminal {
+    width: 100%;
+    max-width: 650px;
+    background: rgba(5,5,5,.96);
+    border: 2px solid #d4af37;
+    border-radius: 12px;
+    padding: 28px 22px;
+    box-shadow:
+        0 0 25px rgba(212,175,55,.2),
+        0 0 50px rgba(200,0,0,.15);
+    text-align: center;
+}
+
+.top-secret {
+    color: #ff2525;
+    letter-spacing: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+h1 {
+    color: #d4af37;
+    letter-spacing: 4px;
+    font-size: clamp(32px, 9vw, 55px);
+    margin: 12px 0 5px;
+}
+
+.step {
+    color: #ff2525;
+    letter-spacing: 4px;
+    font-weight: bold;
+}
+
+.divider {
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #d4af37,
+        transparent
+    );
+    margin: 25px 0;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.gold {
+    color: #d4af37;
+    font-weight: bold;
+}
+
+.red {
+    color: #ff2525;
+    font-weight: bold;
+}
+
+.box {
+    border: 1px solid #8e0000;
+    background: #100000;
+    padding: 20px;
+    margin: 22px 0;
+    border-radius: 7px;
+}
+
+.document {
+    display: block;
+    width: 100%;
+    padding: 17px;
+    margin-top: 20px;
+    border: 1px solid #d4af37;
+    border-radius: 6px;
+    background: #151000;
+    color: #f4e6bd;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.document:hover {
+    background: #2a2000;
+}
+
+.small {
+    color: #8f7627;
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-top: 28px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="terminal">
+
+    <div class="top-secret">
+        TOP SECRET
+    </div>
+
+    <h1>OPERACIJA 12</h1>
+
+    <div class="step">
+        KORAK 02/11
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="gold">
+        AGENT 02
+    </p>
+
+    <p>
+        Preuzimaš kontrolu nad telefonom.
+    </p>
+
+    <div class="box">
+
+        <p class="red">
+            ⚠ PRESRETNUT JE TAJNI DOKUMENT
+        </p>
+
+        <p>
+            Dokument je pronađen,
+            ali njegov sadržaj nije moguće
+            normalno pročitati.
+        </p>
+
+        <p>
+            Moraćete sami da ga dekodirate.
+        </p>
+
+    </div>
+
+    <p class="gold">
+        UPUTSTVO ZA AGENTE
+    </p>
+
+    <p>
+        Otvorite tajni dokument i
+        <b>sačuvajte sliku na telefon.</b>
+    </p>
+
+    <p>
+        Zatim pronađite način da je
+        <b>okrenete tako da poruka postane čitljiva.</b>
+    </p>
+
+    <p class="red">
+        NE TRAŽITE SLEDEĆI QR
+        DOK NE DEKODIRATE DOKUMENT.
+    </p>
+
+    <p>
+        Sistem dozvoljava samo jedan trag:
+    </p>
+
+    <p style="font-size:60px; margin:12px;">
+        🪞
+    </p>
+
+    <a
+        class="document"
+        href="tajni-dokument.png"
+        download="OPERACIJA12_TAJNI_DOKUMENT.png"
+    >
+        🔐 OTVORI TAJNI DOKUMENT
+    </a>
+
+    <div class="small">
+        OPERACIJA 12 // SIGURNOSNI PROTOKOL 02
+    </div>
+
+</div>
+
+</body>
+</html>
