@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Operacija 12 — Misija 05</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top, #300000 0%, #100000 35%, #030303 75%);
+    color: #f4e6bd;
+    font-family: "Courier New", monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.terminal {
+    width: 100%;
+    max-width: 650px;
+    background: rgba(5,5,5,.96);
+    border: 2px solid #d4af37;
+    border-radius: 12px;
+    padding: 28px 22px;
+    box-shadow:
+        0 0 25px rgba(212,175,55,.2),
+        0 0 50px rgba(200,0,0,.15);
+    text-align: center;
+}
+
+h1 {
+    color: #d4af37;
+    letter-spacing: 4px;
+    margin: 5px 0;
+    font-size: clamp(30px, 9vw, 55px);
+}
+
+.mission-number {
+    color: #ff2525;
+    letter-spacing: 4px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    margin: 25px 0;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+button {
+    width: 100%;
+    background: #090909;
+    color: #f4e6bd;
+    border: 1px solid #d4af37;
+    border-radius: 6px;
+    padding: 16px;
+    margin: 7px 0;
+    font-family: inherit;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+button:hover { background: #211800; }
+
+.correct {
+    color: #38e878;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.wrong {
+    color: #ff2525;
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.gold {
+    color: #d4af37;
+    font-weight: bold;
+}
+
+.warning {
+    color: #ff2525;
+    font-weight: bold;
+}
+
+.clue {
+    border: 1px solid #8e0000;
+    background: #100000;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 7px;
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.timer {
+    font-size: 70px;
+    color: #ff2525;
+    font-weight: bold;
+    margin: 25px 0;
+    text-shadow: 0 0 15px rgba(255,0,0,.5);
+}
+
+.hidden { display: none; }
+
+.small {
+    color: #8f7627;
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-top: 25px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="terminal">
+
+<h1>OPERACIJA 12</h1>
+<div class="mission-number">MISIJA 05/10</div>
+
+<!-- PRIJAVA ODGOVORA -->
+
+<div id="screenZones">
+
+    <p class="gold">KONTROLNI TERMINAL</p>
+
+    <p>
+        Ako ste pravilno rešili tragove koje ste pronašli
+        u fioci, trebalo bi da znate sledeću zonu.
+    </p>
+
+    <p class="warning">
+        NE KREĆITE NIGDE DOK SISTEM NE POTVRDI ODGOVOR.
+    </p>
+
+    <div class="divider"></div>
+
+    <p>Prijavite zonu:</p>
+
+    <button onclick="wrongZone()">KUHINJA</button>
+    <button onclick="correctZone()">KUPATILO</button>
+    <button onclick="wrongZone()">DNEVNA SOBA</button>
+    <button onclick="wrongZone()">HODNIK</button>
+    <button onclick="wrongZone()">NATAŠINA SOBA</button>
+
+</div>
+
+<!-- POGREŠNA ZONA -->
+
+<div id="screenWrongZone" class="hidden">
+
+    <div class="wrong">🚨 PRISTUP ODBIJEN</div>
+
+    <div class="divider"></div>
+
+    <p>Pogrešna zona.</p>
+
+    <p class="warning">
+        PRETRAGA STANA NIJE DOZVOLJENA.
+    </p>
+
+    <p>
+        Vratite se tragovima i pokušajte ponovo.
+    </p>
+
+    <button onclick="showZones()">POKUŠAJ PONOVO</button>
+
+</div>
+
+<!-- KUPATILO POGOĐENO -->
+
+<div id="screenBathroom" class="hidden">
+
+    <div class="correct">✓ ODGOVOR POTVRĐEN</div>
+
+    <p class="gold">ZONA OTKLJUČANA: KUPATILO</p>
+
+    <div class="divider"></div>
+
+    <p>
+        Ne krećite još.
+    </p>
+
+    <p>
+        Morate da odredite <b>tačnu lokaciju.</b>
+    </p>
+
+    <div class="clue">
+        Svakoga dana primam vodu,
+        <br><br>
+        ali je nikada ne zadržavam.
+        <br><br>
+        Iznad mene često vidite svoje lice.
+    </div>
+
+    <p>Gde se nalazi sledeći trag?</p>
+
+    <button onclick="wrongLocation()">TUŠ / KADA</button>
+    <button onclick="correctLocation()">LAVABO</button>
+    <button onclick="wrongLocation()">VEŠ MAŠINA</button>
+    <button onclick="wrongLocation()">WC</button>
+
+</div>
+
+<!-- POGREŠNA LOKACIJA -->
+
+<div id="screenWrongLocation" class="hidden">
+
+    <div class="wrong">✕ PRISTUP ODBIJEN</div>
+
+    <div class="divider"></div>
+
+    <p>Lokacija nije potvrđena.</p>
+
+    <p class="warning">
+        PRETRAGA ZABRANJENA.
+    </p>
+
+    <button onclick="showBathroom()">POKUŠAJ PONOVO</button>
+
+</div>
+
+<!-- OTKLJUČANO -->
+
+<div id="screenUnlocked" class="hidden">
+
+    <div class="correct">🔓 LOKACIJA POTVRĐENA</div>
+
+    <div class="divider"></div>
+
+    <p class="gold">
+        KUPATILO → LAVABO
+    </p>
+
+    <p class="warning">
+        PRETRAGA DOZVOLJENA
+    </p>
+
+    <p>
+        Sledeći trag je sakriven
+        <b>kod lavaboa.</b>
+    </p>
+
+    <p>
+        Imate samo:
+    </p>
+
+    <p class="gold" style="font-size:30px;">
+        90 SEKUNDI
+    </p>
+
+    <button onclick="startTimer()">POKRENI ODBROJAVANJE</button>
+
+</div>
+
+<!-- TIMER -->
+
+<div id="screenTimer" class="hidden">
+
+    <p class="warning">⚠ PRETRAGA U TOKU</p>
+
+    <div id="timer" class="timer">01:30</div>
+
+    <p>
+        Tražite pažljivo.
+    </p>
+
+    <p class="gold">
+        Trag nije u vodi niti u odvodu.
+    </p>
+
+</div>
+
+<div class="small">
+    OPERACIJA 12 // SIGURNOSNI SISTEM AKTIVAN
+</div>
+
+</div>
+
+<script>
+
+function hideAll() {
+    document.querySelectorAll('[id^="screen"]').forEach(
+        screen => screen.classList.add('hidden')
+    );
+}
+
+function showZones() {
+    hideAll();
+    document.getElementById("screenZones").classList.remove("hidden");
+}
+
+function wrongZone() {
+    hideAll();
+    document.getElementById("screenWrongZone").classList.remove("hidden");
+}
+
+function correctZone() {
+    hideAll();
+    document.getElementById("screenBathroom").classList.remove("hidden");
+}
+
+function showBathroom() {
+    hideAll();
+    document.getElementById("screenBathroom").classList.remove("hidden");
+}
+
+function wrongLocation() {
+    hideAll();
+    document.getElementById("screenWrongLocation").classList.remove("hidden");
+}
+
+function correctLocation() {
+    hideAll();
+    document.getElementById("screenUnlocked").classList.remove("hidden");
+}
+
+function startTimer() {
+
+    hideAll();
+    document.getElementById("screenTimer").classList.remove("hidden");
+
+    let seconds = 90;
+    const timer = document.getElementById("timer");
+
+    const countdown = setInterval(() => {
+
+        seconds--;
+
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+
+        timer.textContent =
+            String(minutes).padStart(2, "0") +
+            ":" +
+            String(secs).padStart(2, "0");
+
+        if (seconds <= 0) {
+
+            clearInterval(countdown);
+
+            document.getElementById("screenTimer").innerHTML = `
+                <div class="wrong">⏱ VREME JE ISTEKLO</div>
+
+                <div class="divider"></div>
+
+                <p>Agenti, vreme je isteklo.</p>
+
+                <p class="gold">
+                    Operacija se ipak nastavlja.
+                </p>
+
+                <p>
+                    Pronađite trag kod lavaboa.
+                </p>
+            `;
+        }
+
+    }, 1000);
+}
+
+</script>
+
+</body>
+</html>
