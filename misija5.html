@@ -35,28 +35,72 @@ body {
     text-align: center;
 }
 
+.top-secret {
+    color: #ff2525;
+    letter-spacing: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
 h1 {
     color: #d4af37;
     letter-spacing: 4px;
-    margin: 5px 0;
-    font-size: clamp(30px, 9vw, 55px);
+    margin: 12px 0 5px;
+    font-size: clamp(32px, 9vw, 55px);
 }
 
-.mission-number {
+.mission {
     color: #ff2525;
     letter-spacing: 4px;
     font-weight: bold;
-    margin-bottom: 30px;
 }
 
 .divider {
     height: 1px;
-    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #d4af37,
+        transparent
+    );
     margin: 25px 0;
 }
 
 p {
     font-size: 18px;
+    line-height: 1.7;
+}
+
+.gold {
+    color: #d4af37;
+    font-weight: bold;
+}
+
+.red {
+    color: #ff2525;
+    font-weight: bold;
+}
+
+.green {
+    color: #38e878;
+    font-weight: bold;
+}
+
+.box {
+    border: 1px solid #8e0000;
+    background: #100000;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 7px;
+}
+
+.clue {
+    border: 1px solid #d4af37;
+    background: #080808;
+    padding: 22px 15px;
+    margin: 20px 0;
+    border-radius: 7px;
+    font-size: 20px;
     line-height: 1.7;
 }
 
@@ -73,55 +117,33 @@ button {
     cursor: pointer;
 }
 
-button:hover { background: #211800; }
-
-.correct {
-    color: #38e878;
-    font-size: 25px;
-    font-weight: bold;
+button:hover {
+    background: #211800;
 }
 
-.wrong {
-    color: #ff2525;
-    font-size: 27px;
+.main-button {
+    background: #151000;
     font-weight: bold;
-}
-
-.gold {
-    color: #d4af37;
-    font-weight: bold;
-}
-
-.warning {
-    color: #ff2525;
-    font-weight: bold;
-}
-
-.clue {
-    border: 1px solid #8e0000;
-    background: #100000;
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: 7px;
     font-size: 18px;
-    line-height: 1.7;
 }
 
 .timer {
-    font-size: 70px;
+    font-size: clamp(55px, 16vw, 80px);
     color: #ff2525;
     font-weight: bold;
     margin: 25px 0;
     text-shadow: 0 0 15px rgba(255,0,0,.5);
 }
 
-.hidden { display: none; }
+.hidden {
+    display: none;
+}
 
 .small {
     color: #8f7627;
     font-size: 12px;
     letter-spacing: 2px;
-    margin-top: 25px;
+    margin-top: 28px;
 }
 </style>
 </head>
@@ -130,245 +152,549 @@ button:hover { background: #211800; }
 
 <div class="terminal">
 
-<h1>OPERACIJA 12</h1>
-<div class="mission-number">MISIJA 05/10</div>
+    <div class="top-secret">TOP SECRET</div>
 
-<!-- PRIJAVA ODGOVORA -->
+    <h1>OPERACIJA 12</h1>
 
-<div id="screenZones">
-
-    <p class="gold">KONTROLNI TERMINAL</p>
-
-    <p>
-        Ako ste pravilno rešili tragove koje ste pronašli
-        u fioci, trebalo bi da znate sledeću zonu.
-    </p>
-
-    <p class="warning">
-        NE KREĆITE NIGDE DOK SISTEM NE POTVRDI ODGOVOR.
-    </p>
-
-    <div class="divider"></div>
-
-    <p>Prijavite zonu:</p>
-
-    <button onclick="wrongZone()">KUHINJA</button>
-    <button onclick="correctZone()">KUPATILO</button>
-    <button onclick="wrongZone()">DNEVNA SOBA</button>
-    <button onclick="wrongZone()">HODNIK</button>
-    <button onclick="wrongZone()">NATAŠINA SOBA</button>
-
-</div>
-
-<!-- POGREŠNA ZONA -->
-
-<div id="screenWrongZone" class="hidden">
-
-    <div class="wrong">🚨 PRISTUP ODBIJEN</div>
-
-    <div class="divider"></div>
-
-    <p>Pogrešna zona.</p>
-
-    <p class="warning">
-        PRETRAGA STANA NIJE DOZVOLJENA.
-    </p>
-
-    <p>
-        Vratite se tragovima i pokušajte ponovo.
-    </p>
-
-    <button onclick="showZones()">POKUŠAJ PONOVO</button>
-
-</div>
-
-<!-- KUPATILO POGOĐENO -->
-
-<div id="screenBathroom" class="hidden">
-
-    <div class="correct">✓ ODGOVOR POTVRĐEN</div>
-
-    <p class="gold">ZONA OTKLJUČANA: KUPATILO</p>
-
-    <div class="divider"></div>
-
-    <p>
-        Ne krećite još.
-    </p>
-
-    <p>
-        Morate da odredite <b>tačnu lokaciju.</b>
-    </p>
-
-    <div class="clue">
-        Svakoga dana primam vodu,
-        <br><br>
-        ali je nikada ne zadržavam.
-        <br><br>
-        Iznad mene često vidite svoje lice.
+    <div class="mission">
+        MISIJA 05/12
     </div>
 
-    <p>Gde se nalazi sledeći trag?</p>
-
-    <button onclick="wrongLocation()">TUŠ / KADA</button>
-    <button onclick="correctLocation()">LAVABO</button>
-    <button onclick="wrongLocation()">VEŠ MAŠINA</button>
-    <button onclick="wrongLocation()">WC</button>
-
-</div>
-
-<!-- POGREŠNA LOKACIJA -->
-
-<div id="screenWrongLocation" class="hidden">
-
-    <div class="wrong">✕ PRISTUP ODBIJEN</div>
-
     <div class="divider"></div>
 
-    <p>Lokacija nije potvrđena.</p>
 
-    <p class="warning">
-        PRETRAGA ZABRANJENA.
-    </p>
+    <!-- POČETAK -->
 
-    <button onclick="showBathroom()">POKUŠAJ PONOVO</button>
+    <div id="startScreen">
+
+        <p class="gold">
+            AGENT 05
+        </p>
+
+        <p>
+            Preuzimaš kontrolu nad telefonom.
+        </p>
+
+        <div class="box">
+
+            <p class="red">
+                ⚠ ANALIZA ZONA
+            </p>
+
+            <p>
+                Pred vama treba da se nalazi
+                <b>5 kartica.</b>
+            </p>
+
+            <p>
+                KUHINJA<br>
+                KUPATILO<br>
+                DNEVNA SOBA<br>
+                HODNIK<br>
+                NATAŠINA SOBA
+            </p>
+
+        </div>
+
+        <p>
+            Samo jedna od ovih zona
+            sadrži sledeći QR.
+        </p>
+
+        <p>
+            Sistem će vam dati
+            <b>četiri informacije.</b>
+        </p>
+
+        <p class="gold">
+            Posle svakog traga fizički
+            uklonite jednu karticu.
+        </p>
+
+        <p class="red">
+            NE KREĆITE U PRETRAGU.
+        </p>
+
+        <button
+            class="main-button"
+            onclick="showClue1()"
+        >
+            POKRENI ANALIZU
+        </button>
+
+    </div>
+
+
+    <!-- TRAG 1 -->
+
+    <div id="clue1" class="hidden">
+
+        <p class="gold">
+            TRAG 1/4
+        </p>
+
+        <div class="clue">
+            ❌ Tamo gde se kuva —
+            <br><br>
+            NISAM.
+        </div>
+
+        <p>
+            Uklonite jednu karticu.
+        </p>
+
+        <button onclick="showClue2()">
+            SLEDEĆI TRAG
+        </button>
+
+    </div>
+
+
+    <!-- TRAG 2 -->
+
+    <div id="clue2" class="hidden">
+
+        <p class="gold">
+            TRAG 2/4
+        </p>
+
+        <div class="clue">
+            ❌ Tamo gde se spava —
+            <br><br>
+            NISAM.
+        </div>
+
+        <p>
+            Uklonite još jednu karticu.
+        </p>
+
+        <button onclick="showClue3()">
+            SLEDEĆI TRAG
+        </button>
+
+    </div>
+
+
+    <!-- TRAG 3 -->
+
+    <div id="clue3" class="hidden">
+
+        <p class="gold">
+            TRAG 3/4
+        </p>
+
+        <div class="clue">
+            ❌ Tamo gde je
+            <br>
+            OPERACIJA 12 počela —
+            <br><br>
+            NISAM.
+        </div>
+
+        <p>
+            Uklonite još jednu karticu.
+        </p>
+
+        <button onclick="showClue4()">
+            SLEDEĆI TRAG
+        </button>
+
+    </div>
+
+
+    <!-- TRAG 4 -->
+
+    <div id="clue4" class="hidden">
+
+        <p class="gold">
+            TRAG 4/4
+        </p>
+
+        <div class="clue">
+            ❌ Tamo gde se obuvate
+            pre nego što izađete —
+            <br><br>
+            NISAM.
+        </div>
+
+        <p>
+            Sada bi pred vama trebalo
+            da ostane samo
+            <b>jedna kartica.</b>
+        </p>
+
+        <p class="red">
+            NE KREĆITE!
+        </p>
+
+        <button onclick="showZoneCheck()">
+            PRIJAVI PREOSTALU ZONU
+        </button>
+
+    </div>
+
+
+    <!-- PROVERA ZONE -->
+
+    <div id="zoneCheck" class="hidden">
+
+        <p class="gold">
+            KONTROLNI TERMINAL
+        </p>
+
+        <p>
+            Agent 05 mora da prijavi
+            preostalu zonu.
+        </p>
+
+        <button onclick="wrongZone()">
+            KUHINJA
+        </button>
+
+        <button onclick="correctZone()">
+            KUPATILO
+        </button>
+
+        <button onclick="wrongZone()">
+            DNEVNA SOBA
+        </button>
+
+        <button onclick="wrongZone()">
+            HODNIK
+        </button>
+
+        <button onclick="wrongZone()">
+            NATAŠINA SOBA
+        </button>
+
+    </div>
+
+
+    <!-- POGREŠNA ZONA -->
+
+    <div id="wrongZoneScreen" class="hidden">
+
+        <p class="red" style="font-size:27px;">
+            🚨 PRISTUP ODBIJEN
+        </p>
+
+        <div class="divider"></div>
+
+        <p>
+            Pogrešna zona.
+        </p>
+
+        <p class="red">
+            PRETRAGA NIJE DOZVOLJENA.
+        </p>
+
+        <p>
+            Proverite kartice koje su vam ostale.
+        </p>
+
+        <button onclick="showZoneCheck()">
+            POKUŠAJ PONOVO
+        </button>
+
+    </div>
+
+
+    <!-- KUPATILO -->
+
+    <div id="bathroomScreen" class="hidden">
+
+        <p class="green" style="font-size:25px;">
+            ✓ ZONA POTVRĐENA
+        </p>
+
+        <p class="gold" style="font-size:27px;">
+            KUPATILO
+        </p>
+
+        <div class="divider"></div>
+
+        <p class="red">
+            JOŠ NEMATE DOZVOLU ZA PRETRAGU.
+        </p>
+
+        <p>
+            Morate prvo da odredite
+            tačnu lokaciju.
+        </p>
+
+        <div class="clue">
+
+            Svakoga dana primam vodu,
+            <br><br>
+
+            ali je nikada ne zadržavam.
+            <br><br>
+
+            Iznad mene često
+            vidite svoje lice.
+
+        </div>
+
+        <p>
+            Gde se nalazi sledeći QR?
+        </p>
+
+        <button onclick="wrongLocation()">
+            TUŠ / KADA
+        </button>
+
+        <button onclick="correctLocation()">
+            LAVABO
+        </button>
+
+        <button onclick="wrongLocation()">
+            VEŠ MAŠINA
+        </button>
+
+        <button onclick="wrongLocation()">
+            WC
+        </button>
+
+    </div>
+
+
+    <!-- POGREŠNA LOKACIJA -->
+
+    <div id="wrongLocationScreen" class="hidden">
+
+        <p class="red" style="font-size:27px;">
+            ✕ PRISTUP ODBIJEN
+        </p>
+
+        <div class="divider"></div>
+
+        <p>
+            Lokacija nije potvrđena.
+        </p>
+
+        <p class="red">
+            PRETRAGA ZABRANJENA.
+        </p>
+
+        <button onclick="showBathroom()">
+            POKUŠAJ PONOVO
+        </button>
+
+    </div>
+
+
+    <!-- LOKACIJA POTVRĐENA -->
+
+    <div id="unlockedScreen" class="hidden">
+
+        <p class="green" style="font-size:27px;">
+            🔓 LOKACIJA POTVRĐENA
+        </p>
+
+        <div class="divider"></div>
+
+        <p class="gold" style="font-size:25px;">
+            KUPATILO → LAVABO
+        </p>
+
+        <p class="green" style="font-size:23px;">
+            PRETRAGA DOZVOLJENA
+        </p>
+
+        <p>
+            Kod lavaboa se nalazi
+            <b>QR za MISIJU 06.</b>
+        </p>
+
+        <p>
+            Imate:
+        </p>
+
+        <p class="gold" style="font-size:32px;">
+            90 SEKUNDI
+        </p>
+
+        <button
+            class="main-button"
+            onclick="startTimer()"
+        >
+            POKRENI ODBROJAVANJE
+        </button>
+
+    </div>
+
+
+    <!-- TIMER -->
+
+    <div id="timerScreen" class="hidden">
+
+        <p class="red">
+            ⚠ PRETRAGA U TOKU
+        </p>
+
+        <div id="timer" class="timer">
+            01:30
+        </div>
+
+        <p>
+            Pronađite QR za
+            <b>MISIJU 06.</b>
+        </p>
+
+        <p class="gold">
+            Trag nije u vodi niti u odvodu.
+        </p>
+
+    </div>
+
+
+    <!-- VREME ISTEKLO -->
+
+    <div id="timeoutScreen" class="hidden">
+
+        <p class="red" style="font-size:27px;">
+            ⏱ VREME JE ISTEKLO
+        </p>
+
+        <div class="divider"></div>
+
+        <p>
+            Agenti, vreme je isteklo.
+        </p>
+
+        <p class="gold">
+            Operacija 12 se ipak nastavlja.
+        </p>
+
+        <p>
+            Pronađite QR kod lavaboa
+            i nastavite misiju.
+        </p>
+
+    </div>
+
+
+    <div class="small">
+        OPERACIJA 12 // SIGURNOSNI PROTOKOL 05
+    </div>
 
 </div>
 
-<!-- OTKLJUČANO -->
-
-<div id="screenUnlocked" class="hidden">
-
-    <div class="correct">🔓 LOKACIJA POTVRĐENA</div>
-
-    <div class="divider"></div>
-
-    <p class="gold">
-        KUPATILO → LAVABO
-    </p>
-
-    <p class="warning">
-        PRETRAGA DOZVOLJENA
-    </p>
-
-    <p>
-        Sledeći trag je sakriven
-        <b>kod lavaboa.</b>
-    </p>
-
-    <p>
-        Imate samo:
-    </p>
-
-    <p class="gold" style="font-size:30px;">
-        90 SEKUNDI
-    </p>
-
-    <button onclick="startTimer()">POKRENI ODBROJAVANJE</button>
-
-</div>
-
-<!-- TIMER -->
-
-<div id="screenTimer" class="hidden">
-
-    <p class="warning">⚠ PRETRAGA U TOKU</p>
-
-    <div id="timer" class="timer">01:30</div>
-
-    <p>
-        Tražite pažljivo.
-    </p>
-
-    <p class="gold">
-        Trag nije u vodi niti u odvodu.
-    </p>
-
-</div>
-
-<div class="small">
-    OPERACIJA 12 // SIGURNOSNI SISTEM AKTIVAN
-</div>
-
-</div>
 
 <script>
 
 function hideAll() {
-    document.querySelectorAll('[id^="screen"]').forEach(
-        screen => screen.classList.add('hidden')
-    );
+
+    const screens = [
+        "startScreen",
+        "clue1",
+        "clue2",
+        "clue3",
+        "clue4",
+        "zoneCheck",
+        "wrongZoneScreen",
+        "bathroomScreen",
+        "wrongLocationScreen",
+        "unlockedScreen",
+        "timerScreen",
+        "timeoutScreen"
+    ];
+
+    screens.forEach(function(id) {
+        document
+            .getElementById(id)
+            .classList.add("hidden");
+    });
 }
 
-function showZones() {
+
+function showScreen(id) {
+
     hideAll();
-    document.getElementById("screenZones").classList.remove("hidden");
+
+    document
+        .getElementById(id)
+        .classList.remove("hidden");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+function showClue1() {
+    showScreen("clue1");
+}
+
+function showClue2() {
+    showScreen("clue2");
+}
+
+function showClue3() {
+    showScreen("clue3");
+}
+
+function showClue4() {
+    showScreen("clue4");
+}
+
+function showZoneCheck() {
+    showScreen("zoneCheck");
 }
 
 function wrongZone() {
-    hideAll();
-    document.getElementById("screenWrongZone").classList.remove("hidden");
+    showScreen("wrongZoneScreen");
 }
 
 function correctZone() {
-    hideAll();
-    document.getElementById("screenBathroom").classList.remove("hidden");
+    showScreen("bathroomScreen");
 }
 
 function showBathroom() {
-    hideAll();
-    document.getElementById("screenBathroom").classList.remove("hidden");
+    showScreen("bathroomScreen");
 }
 
 function wrongLocation() {
-    hideAll();
-    document.getElementById("screenWrongLocation").classList.remove("hidden");
+    showScreen("wrongLocationScreen");
 }
 
 function correctLocation() {
-    hideAll();
-    document.getElementById("screenUnlocked").classList.remove("hidden");
+    showScreen("unlockedScreen");
 }
+
 
 function startTimer() {
 
-    hideAll();
-    document.getElementById("screenTimer").classList.remove("hidden");
+    showScreen("timerScreen");
 
     let seconds = 90;
-    const timer = document.getElementById("timer");
 
-    const countdown = setInterval(() => {
+    const timer =
+        document.getElementById("timer");
+
+    timer.textContent = "01:30";
+
+    const countdown = setInterval(function() {
 
         seconds--;
 
-        const minutes = Math.floor(seconds / 60);
-        const secs = seconds % 60;
+        const minutes =
+            Math.floor(seconds / 60);
+
+        const remainingSeconds =
+            seconds % 60;
 
         timer.textContent =
-            String(minutes).padStart(2, "0") +
-            ":" +
-            String(secs).padStart(2, "0");
+            String(minutes).padStart(2, "0")
+            + ":"
+            + String(remainingSeconds).padStart(2, "0");
 
         if (seconds <= 0) {
 
             clearInterval(countdown);
 
-            document.getElementById("screenTimer").innerHTML = `
-                <div class="wrong">⏱ VREME JE ISTEKLO</div>
-
-                <div class="divider"></div>
-
-                <p>Agenti, vreme je isteklo.</p>
-
-                <p class="gold">
-                    Operacija se ipak nastavlja.
-                </p>
-
-                <p>
-                    Pronađite trag kod lavaboa.
-                </p>
-            `;
+            showScreen("timeoutScreen");
         }
 
     }, 1000);
