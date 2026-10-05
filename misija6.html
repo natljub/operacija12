@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Operacija 12 — Misija 06</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top, #260000 0%, #0d0000 35%, #020202 75%);
+    color: #f4e6bd;
+    font-family: "Courier New", monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.terminal {
+    width: 100%;
+    max-width: 650px;
+    background: rgba(5,5,5,.97);
+    border: 2px solid #d4af37;
+    border-radius: 12px;
+    padding: 28px 22px;
+    box-shadow:
+        0 0 25px rgba(212,175,55,.20),
+        0 0 55px rgba(255,0,0,.13);
+    text-align: center;
+    position: relative;
+}
+
+.sound {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    width: auto;
+    padding: 8px 10px;
+    margin: 0;
+    font-size: 12px;
+    border-color: #555;
+    color: #aaa;
+}
+
+.top-secret {
+    color: #ff2525;
+    letter-spacing: 5px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+h1 {
+    color: #d4af37;
+    letter-spacing: 4px;
+    margin: 13px 0 5px;
+    font-size: clamp(31px, 9vw, 54px);
+}
+
+.mission {
+    color: #ff2525;
+    letter-spacing: 4px;
+    font-weight: bold;
+}
+
+.divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    margin: 25px 0;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.65;
+}
+
+.gold { color: #d4af37; font-weight: bold; }
+.red { color: #ff3030; font-weight: bold; }
+.green { color: #3ee879; font-weight: bold; }
+
+.box {
+    border: 1px solid #8e0000;
+    background: #100000;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 7px;
+}
+
+.clue {
+    border: 1px solid #d4af37;
+    background: #080808;
+    padding: 20px 15px;
+    margin: 18px 0;
+    border-radius: 7px;
+    font-size: 18px;
+    line-height: 1.65;
+}
+
+button {
+    width: 100%;
+    background: #090909;
+    color: #f4e6bd;
+    border: 1px solid #d4af37;
+    border-radius: 6px;
+    padding: 16px;
+    margin: 7px 0;
+    font-family: inherit;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.main-button {
+    background: #181100;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.wire-red { border-color: #ff3030; }
+.wire-blue { border-color: #318cff; }
+.wire-yellow { border-color: #ffd83d; }
+.wire-green { border-color: #38d96b; }
+
+.timer {
+    font-size: clamp(58px, 17vw, 86px);
+    color: #ff3030;
+    font-weight: bold;
+    margin: 18px 0;
+    text-shadow: 0 0 15px rgba(255,0,0,.55);
+}
+
+.symbols {
+    font-size: clamp(42px, 13vw, 70px);
+    letter-spacing: 12px;
+    margin: 30px 0;
+    color: #d4af37;
+}
+
+.symbolButtons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.symbolButtons button {
+    font-size: 32px;
+    margin: 0;
+}
+
+.sequenceDisplay {
+    min-height: 65px;
+    border: 1px dashed #d4af37;
+    padding: 12px;
+    margin: 15px 0;
+    font-size: 32px;
+    letter-spacing: 8px;
+}
+
+.hidden { display: none; }
+
+.small {
+    color: #806b27;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-top: 28px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="terminal">
+
+<button id="soundButton" class="sound" onclick="toggleSound()">
+    🔊 TON
+</button>
+
+<div class="top-secret">TOP SECRET</div>
+
+<h1>OPERACIJA 12</h1>
+
+<div class="mission">MISIJA 06/12</div>
+
+<div class="divider"></div>
+
+
+<!-- START -->
+
+<div id="startScreen">
+
+    <p class="gold">AGENT 06</p>
+
+    <p>
+        Preuzimaš kontrolu nad telefonom.
+    </p>
+
+    <div class="box">
+
+        <p class="red" style="font-size:25px;">
+            🚨 SECURITY BREACH
+        </p>
+
+        <p>
+            Sistem je otkrio neovlašćeni pristup.
+        </p>
+
+        <p>
+            Aktiviran je sigurnosni alarm.
+        </p>
+
+        <p class="gold">
+            Imate 60 sekundi da ga deaktivirate.
+        </p>
+
+    </div>
+
+    <button class="main-button" onclick="startMission()">
+        ⚠ POKRENI SIGURNOSNI PROTOKOL
+    </button>
+
+</div>
+
+
+<!-- WIRES -->
+
+<div id="wireScreen" class="hidden">
+
+    <p class="red">
+        🚨 ALARM AKTIVAN
+    </p>
+
+    <div id="timer" class="timer">01:00</div>
+
+    <p>
+        Samo jedna žica deaktivira alarm.
+    </p>
+
+    <div class="clue">
+        1. Prava žica nije boje krvi.<br><br>
+        2. Nije ni boje trave.<br><br>
+        3. Sunce vam ovde neće pomoći.
+    </div>
+
+    <p class="red">
+        ⚠ Pogrešan izbor oduzima 10 sekundi.
+    </p>
+
+    <button class="wire-red" onclick="wrongWire()">
+        🔴 CRVENA ŽICA
+    </button>
+
+    <button class="wire-blue" onclick="correctWire()">
+        🔵 PLAVA ŽICA
+    </button>
+
+    <button class="wire-yellow" onclick="wrongWire()">
+        🟡 ŽUTA ŽICA
+    </button>
+
+    <button class="wire-green" onclick="wrongWire()">
+        🟢 ZELENA ŽICA
+    </button>
+
+</div>
+
+
+<!-- WRONG WIRE -->
+
+<div id="wrongWireScreen" class="hidden">
+
+    <p class="red" style="font-size:29px;">
+        ❌ POGREŠNA ŽICA
+    </p>
+
+    <div class="box">
+        <p class="red">
+            KAZNA: −10 SEKUNDI
+        </p>
+    </div>
+
+    <button onclick="returnToWires()">
+        ← NAZAD NA KONTROLNU TABLU
+    </button>
+
+</div>
+
+
+<!-- ALARM OFF -->
+
+<div id="alarmOffScreen" class="hidden">
+
+    <p class="green" style="font-size:28px;">
+        ✓ ALARM DEAKTIVIRAN
+    </p>
+
+    <div class="divider"></div>
+
+    <p>
+        Prvi nivo zaštite je probijen.
+    </p>
+
+    <p class="red">
+        ALI SISTEM JOŠ NIJE OTKLJUČAN.
+    </p>
+
+    <div class="box">
+        <p class="gold">
+            TEST MEMORIJE
+        </p>
+
+        <p>
+            Agent 06 će videti tajnu sekvencu
+            samo <b>5 sekundi.</b>
+        </p>
+
+        <p>
+            Ostali agenti NE SMEJU da gledaju ekran.
+        </p>
+
+        <p class="red">
+            Kada sekvenca nestane,
+            Agent 06 više NE SME da dodiruje telefon.
+        </p>
+
+        <p>
+            Mora usmeno da objasni sekvencu ostalima.
+        </p>
+    </div>
+
+    <button class="main-button" onclick="showSequence()">
+        👁 PRIKAŽI TAJNU SEKVENCU
+    </button>
+
+</div>
+
+
+<!-- SEQUENCE -->
+
+<div id="sequenceScreen" class="hidden">
+
+    <p class="red">
+        ⚠ SAMO AGENT 06 GLEDA
+    </p>
+
+    <p>
+        Zapamti redosled:
+    </p>
+
+    <div class="symbols">
+        ▲ ● ★ ■
+    </div>
+
+    <p id="memoryCountdown" class="gold">
+        NESTAJE ZA 5...
+    </p>
+
+</div>
+
+
+<!-- ENTER SEQUENCE -->
+
+<div id="sequenceInputScreen" class="hidden">
+
+    <p class="red">
+        ✋ AGENT 06 — RUKE DALJE OD TELEFONA
+    </p>
+
+    <p>
+        Drugi agent sada preuzima telefon.
+    </p>
+
+    <p>
+        Unesite sekvencu prema uputstvu Agenta 06.
+    </p>
+
+    <div id="sequenceDisplay" class="sequenceDisplay">
+        —
+    </div>
+
+    <div class="symbolButtons">
+
+        <button onclick="addSymbol('▲')">▲</button>
+        <button onclick="addSymbol('●')">●</button>
+        <button onclick="addSymbol('★')">★</button>
+        <button onclick="addSymbol('■')">■</button>
+
+    </div>
+
+    <button onclick="clearSequence()">
+        ⌫ OBRIŠI
+    </button>
+
+    <button class="main-button" onclick="checkSequence()">
+        POTVRDI SEKVENCU
+    </button>
+
+</div>
+
+
+<!-- WRONG SEQUENCE -->
+
+<div id="wrongSequenceScreen" class="hidden">
+
+    <p class="red" style="font-size:28px;">
+        🚨 SEKVENCA ODBIJENA
+    </p>
+
+    <p>
+        Memorijski ključ nije tačan.
+    </p>
+
+    <p class="gold">
+        Agent 06 može još jednom da objasni
+        ono što je zapamtio.
+    </p>
+
+    <p class="red">
+        Sekvenca se NE prikazuje ponovo.
+    </p>
+
+    <button onclick="retrySequence()">
+        POKUŠAJ PONOVO
+    </button>
+
+</div>
+
+
+<!-- SUCCESS -->
+
+<div id="successScreen" class="hidden">
+
+    <p class="green" style="font-size:30px;">
+        🔓 SIGURNOSNI SISTEM OTKLJUČAN
+    </p>
+
+    <div class="divider"></div>
+
+    <p class="gold">
+        MISIJA 06 USPEŠNO ZAVRŠENA
+    </p>
+
+    <div class="box">
+
+        <p class="green">
+            ✓ ALARM DEAKTIVIRAN
+        </p>
+
+        <p class="green">
+            ✓ MEMORIJSKI KLJUČ POTVRĐEN
+        </p>
+
+        <p class="green">
+            ✓ PRISTUP ODOBREN
+        </p>
+
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="red" style="font-size:25px;">
+        📡 PRESRETNUTA PORUKA
+    </p>
+
+    <div class="clue">
+
+        Sledeći signal dolazi sa mesta
+        <br>
+        koje danas svi žele da napadnu.
+
+        <br><br>
+
+        Tamo nema zlata,
+        <br>
+        ali ima <b>slatkog blaga.</b>
+
+        <br><br>
+
+        Ne čuva ga stražar,
+        <br>
+        ali će nestati čim dobije dozvolu.
+
+    </div>
+
+    <p class="red" style="font-size:20px;">
+        ⚠ JOŠ UVEK NE DIRAJTE NIŠTA.
+    </p>
+
+    <p>
+        Pronađite lokaciju.
+    </p>
+
+    <p class="gold" style="font-size:21px;">
+        Tamo vas čeka
+        <br><br>
+        AGENT 07.
+    </p>
+
+</div>
+
+    <p>
+        Čekajte instrukcije za
+        <b>MISIJU 07.</b>
+    </p>
+
+</div>
+
+
+<!-- TIMEOUT -->
+
+<div id="timeoutScreen" class="hidden">
+
+    <p class="red" style="font-size:31px;">
+        ⏱ VREME JE ISTEKLO
+    </p>
+
+    <div class="divider"></div>
+
+    <p>
+        Sigurnosni sistem se zaključao.
+    </p>
+
+    <p class="gold">
+        Ali Operacija 12 ne može ovde da se završi.
+    </p>
+
+    <button class="main-button" onclick="emergencyOverride()">
+        ⚠ HITNI PROTOKOL
+    </button>
+
+</div>
+
+
+<div class="small">
+    OPERACIJA 12 // SECURITY SYSTEM 06
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   AUDIO
+========================= */
+
+let audioContext = null;
+let soundEnabled = true;
+let musicInterval = null;
+let musicStep = 0;
+
+function getAudio() {
+
+    if (!audioContext) {
+        audioContext =
+            new (window.AudioContext ||
+                 window.webkitAudioContext)();
+    }
+
+    if (audioContext.state === "suspended") {
+        audioContext.resume();
+    }
+
+    return audioContext;
+}
+
+function tone(freq, duration, volume = 0.05, type = "sine") {
+
+    if (!soundEnabled) return;
+
+    const ctx = getAudio();
+
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.type = type;
+    osc.frequency.value = freq;
+
+    gain.gain.setValueAtTime(volume, ctx.currentTime);
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        ctx.currentTime + duration
+    );
+
+    osc.start();
+    osc.stop(ctx.currentTime + duration);
+}
+
+function toggleSound() {
+
+    soundEnabled = !soundEnabled;
+
+    document.getElementById("soundButton").innerHTML =
+        soundEnabled ? "🔊 TON" : "🔇 TON";
+
+    if (soundEnabled) {
+        getAudio();
+        tone(700, .08, .08);
+    }
+}
+
+
+/* =========================
+   BACKGROUND MUSIC
+========================= */
+
+function startMusic() {
+
+    if (musicInterval) return;
+
+    const bass = [
+        82.41,
+        82.41,
+        73.42,
+        98.00,
+        82.41,
+        110.00,
+        73.42,
+        98.00
+    ];
+
+    function musicBeat() {
+
+        if (!soundEnabled) return;
+
+        const note =
+            bass[musicStep % bass.length];
+
+        tone(note, .55, .025, "triangle");
+
+        if (musicStep % 4 === 1) {
+            setTimeout(function() {
+                tone(520, .07, .015, "sine");
+            }, 250);
+        }
+
+        if (musicStep % 8 === 6) {
+            setTimeout(function() {
+                tone(780, .06, .012, "sine");
+            }, 400);
+        }
+
+        musicStep++;
+    }
+
+    musicBeat();
+
+    musicInterval =
+        setInterval(musicBeat, 700);
+}
+
+
+/* =========================
+   EFFECTS
+========================= */
+
+function successSound() {
+
+    tone(600, .12, .13);
+
+    setTimeout(() =>
+        tone(850, .13, .13), 120);
+
+    setTimeout(() =>
+        tone(1150, .25, .15), 260);
+}
+
+function errorSound() {
+
+    tone(220, .25, .16, "sawtooth");
+
+    setTimeout(() =>
+        tone(150, .40, .16, "sawtooth"), 180);
+}
+
+function tickSound() {
+    tone(700, .04, .05, "square");
+}
+
+function dangerSound() {
+
+    tone(1050, .06, .11, "square");
+
+    setTimeout(() =>
+        tone(1050, .06, .11, "square"), 120);
+}
+
+
+/* =========================
+   SCREENS
+========================= */
+
+const screens = [
+    "startScreen",
+    "wireScreen",
+    "wrongWireScreen",
+    "alarmOffScreen",
+    "sequenceScreen",
+    "sequenceInputScreen",
+    "wrongSequenceScreen",
+    "successScreen",
+    "timeoutScreen"
+];
+
+function show(id) {
+
+    screens.forEach(screen => {
+        document
+            .getElementById(screen)
+            .classList.add("hidden");
+    });
+
+    document
+        .getElementById(id)
+        .classList.remove("hidden");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* =========================
+   MISSION START
+========================= */
+
+let seconds = 60;
+let countdown = null;
+let alarmSolved = false;
+
+function startMission() {
+
+    getAudio();
+
+    startMusic();
+
+    tone(500, .1, .12);
+
+    setTimeout(() =>
+        tone(750, .1, .12), 130);
+
+    setTimeout(() =>
+        tone(1000, .2, .14), 260);
+
+    show("wireScreen");
+
+    startTimer();
+}
+
+
+/* =========================
+   TIMER
+========================= */
+
+function startTimer() {
+
+    updateTimer();
+
+    countdown = setInterval(function() {
+
+        if (alarmSolved) {
+            clearInterval(countdown);
+            return;
+        }
+
+        seconds--;
+
+        if (seconds > 10 && seconds % 2 === 0) {
+            tickSound();
+        }
+
+        if (seconds <= 10 && seconds > 0) {
+            dangerSound();
+        }
+
+        updateTimer();
+
+        if (seconds <= 0) {
+
+            clearInterval(countdown);
+
+            errorSound();
+
+            show("timeoutScreen");
+        }
+
+    }, 1000);
+}
+
+function updateTimer() {
+
+    if (seconds < 0) seconds = 0;
+
+    const min = Math.floor(seconds / 60);
+    const sec = seconds % 60;
+
+    document.getElementById("timer").textContent =
+        String(min).padStart(2,"0") +
+        ":" +
+        String(sec).padStart(2,"0");
+}
+
+
+/* =========================
+   WIRES
+========================= */
+
+function wrongWire() {
+
+    seconds -= 10;
+
+    if (seconds < 0) seconds = 0;
+
+    updateTimer();
+
+    errorSound();
+
+    show("wrongWireScreen");
+}
+
+function returnToWires() {
+
+    if (seconds <= 0) {
+
+        clearInterval(countdown);
+
+        show("timeoutScreen");
+
+        return;
+    }
+
+    show("wireScreen");
+}
+
+function correctWire() {
+
+    alarmSolved = true;
+
+    clearInterval(countdown);
+
+    successSound();
+
+    show("alarmOffScreen");
+}
+
+
+/* =========================
+   MEMORY
+========================= */
+
+function showSequence() {
+
+    show("sequenceScreen");
+
+    let memorySeconds = 5;
+
+    const label =
+        document.getElementById("memoryCountdown");
+
+    label.textContent =
+        "NESTAJE ZA 5...";
+
+    const memoryTimer =
+        setInterval(function() {
+
+            memorySeconds--;
+
+            if (memorySeconds > 0) {
+
+                label.textContent =
+                    "NESTAJE ZA " +
+                    memorySeconds +
+                    "...";
+
+                tickSound();
+
+            } else {
+
+                clearInterval(memoryTimer);
+
+                tone(900, .1, .1);
+
+                show("sequenceInputScreen");
+            }
+
+        }, 1000);
+}
+
+
+/* =========================
+   SEQUENCE INPUT
+========================= */
+
+let enteredSequence = [];
+
+const correctSequence =
+    ["▲","●","★","■"];
+
+function addSymbol(symbol) {
+
+    if (enteredSequence.length >= 4) {
+        return;
+    }
+
+    enteredSequence.push(symbol);
+
+    updateSequenceDisplay();
+
+    tone(500 + enteredSequence.length * 100,
+         .06,
+         .05);
+}
+
+function clearSequence() {
+
+    enteredSequence = [];
+
+    updateSequenceDisplay();
+}
+
+function updateSequenceDisplay() {
+
+    const display =
+        document.getElementById("sequenceDisplay");
+
+    if (enteredSequence.length === 0) {
+        display.textContent = "—";
+    } else {
+        display.textContent =
+            enteredSequence.join(" ");
+    }
+}
+
+function checkSequence() {
+
+    if (enteredSequence.length !== 4) {
+
+        errorSound();
+        return;
+    }
+
+    const correct =
+        enteredSequence.every(
+            (symbol, index) =>
+                symbol === correctSequence[index]
+        );
+
+    if (correct) {
+
+        successSound();
+
+        show("successScreen");
+
+    } else {
+
+        errorSound();
+
+        enteredSequence = [];
+
+        updateSequenceDisplay();
+
+        show("wrongSequenceScreen");
+    }
+}
+
+function retrySequence() {
+
+    enteredSequence = [];
+
+    updateSequenceDisplay();
+
+    show("sequenceInputScreen");
+}
+
+
+/* =========================
+   EMERGENCY
+========================= */
+
+function emergencyOverride() {
+
+    alarmSolved = true;
+
+    seconds = 30;
+
+    successSound();
+
+    show("alarmOffScreen");
+}
+
+</script>
+
+</body>
+</html>
