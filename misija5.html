@@ -57,12 +57,7 @@ h1 {
 
 .divider {
     height: 1px;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        #d4af37,
-        transparent
-    );
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
     margin: 25px 0;
 }
 
@@ -152,441 +147,682 @@ button:hover {
 
 <div class="terminal">
 
-    <div class="top-secret">TOP SECRET</div>
+<div class="top-secret">TOP SECRET</div>
 
-    <h1>OPERACIJA 12</h1>
+<h1>OPERACIJA 12</h1>
 
-    <div class="mission">
-        MISIJA 05/12
+<div class="mission">
+    MISIJA 05/12
+</div>
+
+<div class="divider"></div>
+
+
+<!-- START -->
+
+<div id="startScreen">
+
+    <p class="gold">
+        AGENT 05
+    </p>
+
+    <p>
+        Preuzimaš kontrolu nad telefonom.
+    </p>
+
+    <div class="box">
+
+        <p class="red">
+            ⚠ SIGURNOSNI SISTEM AKTIVAN
+        </p>
+
+        <p>
+            Ova misija zahteva
+            aktivaciju zvučnog protokola.
+        </p>
+
+        <p class="gold">
+            POJAČAJTE ZVUK NA TELEFONU.
+        </p>
+
     </div>
+
+    <button
+        class="main-button"
+        onclick="startMission()"
+    >
+        ▶ POKRENI MISIJU
+    </button>
+
+</div>
+
+
+<!-- ANALIZA -->
+
+<div id="analysisScreen" class="hidden">
+
+    <p class="red">
+        ⚠ ANALIZA ZONA
+    </p>
+
+    <p>
+        Pred vama treba da se nalazi
+        <b>5 kartica:</b>
+    </p>
+
+    <div class="box">
+
+        KUHINJA<br><br>
+        KUPATILO<br><br>
+        DNEVNA SOBA<br><br>
+        HODNIK<br><br>
+        NATAŠINA SOBA
+
+    </div>
+
+    <p>
+        Sistem će vam dati
+        <b>četiri informacije.</b>
+    </p>
+
+    <p class="gold">
+        Posle svakog traga fizički
+        uklonite jednu karticu.
+    </p>
+
+    <p class="red">
+        NE KREĆITE U PRETRAGU.
+    </p>
+
+    <button onclick="showClue1()">
+        POKRENI ANALIZU
+    </button>
+
+</div>
+
+
+<!-- TRAG 1 -->
+
+<div id="clue1" class="hidden">
+
+    <p class="gold">TRAG 1/4</p>
+
+    <div class="clue">
+        ❌ Tamo gde se kuva —
+        <br><br>
+        NISAM.
+    </div>
+
+    <p>
+        Uklonite jednu karticu.
+    </p>
+
+    <button onclick="showClue2()">
+        SLEDEĆI TRAG
+    </button>
+
+</div>
+
+
+<!-- TRAG 2 -->
+
+<div id="clue2" class="hidden">
+
+    <p class="gold">TRAG 2/4</p>
+
+    <div class="clue">
+        ❌ Tamo gde se spava —
+        <br><br>
+        NISAM.
+    </div>
+
+    <p>
+        Uklonite još jednu karticu.
+    </p>
+
+    <button onclick="showClue3()">
+        SLEDEĆI TRAG
+    </button>
+
+</div>
+
+
+<!-- TRAG 3 -->
+
+<div id="clue3" class="hidden">
+
+    <p class="gold">TRAG 3/4</p>
+
+    <div class="clue">
+
+        ❌ Tamo gde je
+        <br>
+        OPERACIJA 12 počela —
+        <br><br>
+        NISAM.
+
+    </div>
+
+    <p>
+        Uklonite još jednu karticu.
+    </p>
+
+    <button onclick="showClue4()">
+        SLEDEĆI TRAG
+    </button>
+
+</div>
+
+
+<!-- TRAG 4 -->
+
+<div id="clue4" class="hidden">
+
+    <p class="gold">TRAG 4/4</p>
+
+    <div class="clue">
+
+        ❌ Tamo gde se obuvate
+        pre nego što izađete —
+        <br><br>
+        NISAM.
+
+    </div>
+
+    <p>
+        Pred vama bi sada trebalo
+        da ostane samo
+        <b>jedna kartica.</b>
+    </p>
+
+    <p class="red">
+        NE KREĆITE!
+    </p>
+
+    <button onclick="showZoneCheck()">
+        PRIJAVI PREOSTALU ZONU
+    </button>
+
+</div>
+
+
+<!-- ZONE CHECK -->
+
+<div id="zoneCheck" class="hidden">
+
+    <p class="gold">
+        KONTROLNI TERMINAL
+    </p>
+
+    <p>
+        Agent 05 mora da prijavi
+        preostalu zonu.
+    </p>
+
+    <button onclick="wrongZone()">KUHINJA</button>
+
+    <button onclick="correctZone()">KUPATILO</button>
+
+    <button onclick="wrongZone()">DNEVNA SOBA</button>
+
+    <button onclick="wrongZone()">HODNIK</button>
+
+    <button onclick="wrongZone()">NATAŠINA SOBA</button>
+
+</div>
+
+
+<!-- WRONG ZONE -->
+
+<div id="wrongZoneScreen" class="hidden">
+
+    <p class="red" style="font-size:27px;">
+        🚨 PRISTUP ODBIJEN
+    </p>
 
     <div class="divider"></div>
 
+    <p>
+        Pogrešna zona.
+    </p>
 
-    <!-- POČETAK -->
+    <p class="red">
+        PRETRAGA NIJE DOZVOLJENA.
+    </p>
 
-    <div id="startScreen">
+    <button onclick="showZoneCheck()">
+        POKUŠAJ PONOVO
+    </button>
 
-        <p class="gold">
-            AGENT 05
-        </p>
+</div>
 
-        <p>
-            Preuzimaš kontrolu nad telefonom.
-        </p>
 
-        <div class="box">
+<!-- BATHROOM -->
 
-            <p class="red">
-                ⚠ ANALIZA ZONA
-            </p>
+<div id="bathroomScreen" class="hidden">
 
-            <p>
-                Pred vama treba da se nalazi
-                <b>5 kartica.</b>
-            </p>
+    <p class="green" style="font-size:25px;">
+        ✓ ZONA POTVRĐENA
+    </p>
 
-            <p>
-                KUHINJA<br>
-                KUPATILO<br>
-                DNEVNA SOBA<br>
-                HODNIK<br>
-                NATAŠINA SOBA
-            </p>
+    <p class="gold" style="font-size:27px;">
+        KUPATILO
+    </p>
 
-        </div>
+    <div class="divider"></div>
 
-        <p>
-            Samo jedna od ovih zona
-            sadrži sledeći QR.
-        </p>
+    <p class="red">
+        JOŠ NEMATE DOZVOLU ZA PRETRAGU.
+    </p>
 
-        <p>
-            Sistem će vam dati
-            <b>četiri informacije.</b>
-        </p>
+    <p>
+        Odredite tačnu lokaciju.
+    </p>
 
-        <p class="gold">
-            Posle svakog traga fizički
-            uklonite jednu karticu.
-        </p>
+    <div class="clue">
 
-        <p class="red">
-            NE KREĆITE U PRETRAGU.
-        </p>
+        Svakoga dana primam vodu,
+        <br><br>
 
-        <button
-            class="main-button"
-            onclick="showClue1()"
-        >
-            POKRENI ANALIZU
-        </button>
+        ali je nikada ne zadržavam.
+        <br><br>
+
+        Iznad mene često
+        vidite svoje lice.
 
     </div>
 
+    <button onclick="wrongLocation()">
+        TUŠ / KADA
+    </button>
 
-    <!-- TRAG 1 -->
+    <button onclick="correctLocation()">
+        LAVABO
+    </button>
 
-    <div id="clue1" class="hidden">
+    <button onclick="wrongLocation()">
+        VEŠ MAŠINA
+    </button>
 
-        <p class="gold">
-            TRAG 1/4
-        </p>
+    <button onclick="wrongLocation()">
+        WC
+    </button>
 
-        <div class="clue">
-            ❌ Tamo gde se kuva —
-            <br><br>
-            NISAM.
-        </div>
+</div>
 
-        <p>
-            Uklonite jednu karticu.
-        </p>
 
-        <button onclick="showClue2()">
-            SLEDEĆI TRAG
-        </button>
+<!-- WRONG LOCATION -->
 
+<div id="wrongLocationScreen" class="hidden">
+
+    <p class="red" style="font-size:27px;">
+        🚨 PRISTUP ODBIJEN
+    </p>
+
+    <div class="divider"></div>
+
+    <p>
+        Lokacija nije potvrđena.
+    </p>
+
+    <p class="red">
+        PRETRAGA ZABRANJENA.
+    </p>
+
+    <button onclick="showBathroom()">
+        POKUŠAJ PONOVO
+    </button>
+
+</div>
+
+
+<!-- UNLOCKED -->
+
+<div id="unlockedScreen" class="hidden">
+
+    <p class="green" style="font-size:27px;">
+        🔓 LOKACIJA POTVRĐENA
+    </p>
+
+    <div class="divider"></div>
+
+    <p class="gold" style="font-size:25px;">
+        KUPATILO → LAVABO
+    </p>
+
+    <p class="green">
+        PRETRAGA DOZVOLJENA
+    </p>
+
+    <p>
+        Kod lavaboa nalazi se
+        <b>QR za MISIJU 06.</b>
+    </p>
+
+    <p>
+        Imate:
+    </p>
+
+    <p class="gold" style="font-size:32px;">
+        90 SEKUNDI
+    </p>
+
+    <button
+        class="main-button"
+        onclick="startTimer()"
+    >
+        ⏱ POKRENI ODBROJAVANJE
+    </button>
+
+</div>
+
+
+<!-- TIMER -->
+
+<div id="timerScreen" class="hidden">
+
+    <p class="red">
+        ⚠ PRETRAGA U TOKU
+    </p>
+
+    <div id="timer" class="timer">
+        01:30
     </div>
 
+    <p>
+        Pronađite QR za
+        <b>MISIJU 06.</b>
+    </p>
 
-    <!-- TRAG 2 -->
+    <p class="gold">
+        Trag nije u vodi niti u odvodu.
+    </p>
 
-    <div id="clue2" class="hidden">
+</div>
 
-        <p class="gold">
-            TRAG 2/4
-        </p>
 
-        <div class="clue">
-            ❌ Tamo gde se spava —
-            <br><br>
-            NISAM.
-        </div>
+<!-- TIMEOUT -->
 
-        <p>
-            Uklonite još jednu karticu.
-        </p>
+<div id="timeoutScreen" class="hidden">
 
-        <button onclick="showClue3()">
-            SLEDEĆI TRAG
-        </button>
+    <p class="red" style="font-size:27px;">
+        ⏱ VREME JE ISTEKLO
+    </p>
 
-    </div>
+    <div class="divider"></div>
 
+    <p class="gold">
+        Operacija 12 se ipak nastavlja.
+    </p>
 
-    <!-- TRAG 3 -->
+    <p>
+        Pronađite QR kod lavaboa
+        i nastavite misiju.
+    </p>
 
-    <div id="clue3" class="hidden">
+</div>
 
-        <p class="gold">
-            TRAG 3/4
-        </p>
 
-        <div class="clue">
-            ❌ Tamo gde je
-            <br>
-            OPERACIJA 12 počela —
-            <br><br>
-            NISAM.
-        </div>
-
-        <p>
-            Uklonite još jednu karticu.
-        </p>
-
-        <button onclick="showClue4()">
-            SLEDEĆI TRAG
-        </button>
-
-    </div>
-
-
-    <!-- TRAG 4 -->
-
-    <div id="clue4" class="hidden">
-
-        <p class="gold">
-            TRAG 4/4
-        </p>
-
-        <div class="clue">
-            ❌ Tamo gde se obuvate
-            pre nego što izađete —
-            <br><br>
-            NISAM.
-        </div>
-
-        <p>
-            Sada bi pred vama trebalo
-            da ostane samo
-            <b>jedna kartica.</b>
-        </p>
-
-        <p class="red">
-            NE KREĆITE!
-        </p>
-
-        <button onclick="showZoneCheck()">
-            PRIJAVI PREOSTALU ZONU
-        </button>
-
-    </div>
-
-
-    <!-- PROVERA ZONE -->
-
-    <div id="zoneCheck" class="hidden">
-
-        <p class="gold">
-            KONTROLNI TERMINAL
-        </p>
-
-        <p>
-            Agent 05 mora da prijavi
-            preostalu zonu.
-        </p>
-
-        <button onclick="wrongZone()">
-            KUHINJA
-        </button>
-
-        <button onclick="correctZone()">
-            KUPATILO
-        </button>
-
-        <button onclick="wrongZone()">
-            DNEVNA SOBA
-        </button>
-
-        <button onclick="wrongZone()">
-            HODNIK
-        </button>
-
-        <button onclick="wrongZone()">
-            NATAŠINA SOBA
-        </button>
-
-    </div>
-
-
-    <!-- POGREŠNA ZONA -->
-
-    <div id="wrongZoneScreen" class="hidden">
-
-        <p class="red" style="font-size:27px;">
-            🚨 PRISTUP ODBIJEN
-        </p>
-
-        <div class="divider"></div>
-
-        <p>
-            Pogrešna zona.
-        </p>
-
-        <p class="red">
-            PRETRAGA NIJE DOZVOLJENA.
-        </p>
-
-        <p>
-            Proverite kartice koje su vam ostale.
-        </p>
-
-        <button onclick="showZoneCheck()">
-            POKUŠAJ PONOVO
-        </button>
-
-    </div>
-
-
-    <!-- KUPATILO -->
-
-    <div id="bathroomScreen" class="hidden">
-
-        <p class="green" style="font-size:25px;">
-            ✓ ZONA POTVRĐENA
-        </p>
-
-        <p class="gold" style="font-size:27px;">
-            KUPATILO
-        </p>
-
-        <div class="divider"></div>
-
-        <p class="red">
-            JOŠ NEMATE DOZVOLU ZA PRETRAGU.
-        </p>
-
-        <p>
-            Morate prvo da odredite
-            tačnu lokaciju.
-        </p>
-
-        <div class="clue">
-
-            Svakoga dana primam vodu,
-            <br><br>
-
-            ali je nikada ne zadržavam.
-            <br><br>
-
-            Iznad mene često
-            vidite svoje lice.
-
-        </div>
-
-        <p>
-            Gde se nalazi sledeći QR?
-        </p>
-
-        <button onclick="wrongLocation()">
-            TUŠ / KADA
-        </button>
-
-        <button onclick="correctLocation()">
-            LAVABO
-        </button>
-
-        <button onclick="wrongLocation()">
-            VEŠ MAŠINA
-        </button>
-
-        <button onclick="wrongLocation()">
-            WC
-        </button>
-
-    </div>
-
-
-    <!-- POGREŠNA LOKACIJA -->
-
-    <div id="wrongLocationScreen" class="hidden">
-
-        <p class="red" style="font-size:27px;">
-            ✕ PRISTUP ODBIJEN
-        </p>
-
-        <div class="divider"></div>
-
-        <p>
-            Lokacija nije potvrđena.
-        </p>
-
-        <p class="red">
-            PRETRAGA ZABRANJENA.
-        </p>
-
-        <button onclick="showBathroom()">
-            POKUŠAJ PONOVO
-        </button>
-
-    </div>
-
-
-    <!-- LOKACIJA POTVRĐENA -->
-
-    <div id="unlockedScreen" class="hidden">
-
-        <p class="green" style="font-size:27px;">
-            🔓 LOKACIJA POTVRĐENA
-        </p>
-
-        <div class="divider"></div>
-
-        <p class="gold" style="font-size:25px;">
-            KUPATILO → LAVABO
-        </p>
-
-        <p class="green" style="font-size:23px;">
-            PRETRAGA DOZVOLJENA
-        </p>
-
-        <p>
-            Kod lavaboa se nalazi
-            <b>QR za MISIJU 06.</b>
-        </p>
-
-        <p>
-            Imate:
-        </p>
-
-        <p class="gold" style="font-size:32px;">
-            90 SEKUNDI
-        </p>
-
-        <button
-            class="main-button"
-            onclick="startTimer()"
-        >
-            POKRENI ODBROJAVANJE
-        </button>
-
-    </div>
-
-
-    <!-- TIMER -->
-
-    <div id="timerScreen" class="hidden">
-
-        <p class="red">
-            ⚠ PRETRAGA U TOKU
-        </p>
-
-        <div id="timer" class="timer">
-            01:30
-        </div>
-
-        <p>
-            Pronađite QR za
-            <b>MISIJU 06.</b>
-        </p>
-
-        <p class="gold">
-            Trag nije u vodi niti u odvodu.
-        </p>
-
-    </div>
-
-
-    <!-- VREME ISTEKLO -->
-
-    <div id="timeoutScreen" class="hidden">
-
-        <p class="red" style="font-size:27px;">
-            ⏱ VREME JE ISTEKLO
-        </p>
-
-        <div class="divider"></div>
-
-        <p>
-            Agenti, vreme je isteklo.
-        </p>
-
-        <p class="gold">
-            Operacija 12 se ipak nastavlja.
-        </p>
-
-        <p>
-            Pronađite QR kod lavaboa
-            i nastavite misiju.
-        </p>
-
-    </div>
-
-
-    <div class="small">
-        OPERACIJA 12 // SIGURNOSNI PROTOKOL 05
-    </div>
+<div class="small">
+    OPERACIJA 12 // SIGURNOSNI PROTOKOL 05
+</div>
 
 </div>
 
 
 <script>
 
+/* ==============================
+   AUDIO ENGINE
+============================== */
+
+let audioContext = null;
+let musicTimer = null;
+let musicStep = 0;
+
+
+function getAudioContext() {
+
+    if (!audioContext) {
+
+        audioContext =
+            new (window.AudioContext ||
+                 window.webkitAudioContext)();
+    }
+
+    if (audioContext.state === "suspended") {
+        audioContext.resume();
+    }
+
+    return audioContext;
+}
+
+
+function tone(
+    frequency,
+    duration,
+    volume = 0.05,
+    type = "sine"
+) {
+
+    const ctx = getAudioContext();
+
+    const oscillator = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    oscillator.connect(gain);
+    gain.connect(ctx.destination);
+
+    oscillator.type = type;
+    oscillator.frequency.value = frequency;
+
+    gain.gain.setValueAtTime(
+        volume,
+        ctx.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        ctx.currentTime + duration
+    );
+
+    oscillator.start();
+
+    oscillator.stop(
+        ctx.currentTime + duration
+    );
+}
+
+
+/* ==============================
+   BACKGROUND SPY MUSIC
+============================== */
+
+function startBackgroundMusic() {
+
+    if (musicTimer) {
+        return;
+    }
+
+    /*
+       Niski puls + povremeni visoki ton.
+       Namerno je tih da ne smeta
+       razgovoru dece.
+    */
+
+    const bassNotes = [
+        82.41,
+        82.41,
+        98.00,
+        73.42,
+        82.41,
+        110.00,
+        98.00,
+        73.42
+    ];
+
+    function playMusicStep() {
+
+        const note =
+            bassNotes[
+                musicStep % bassNotes.length
+            ];
+
+        tone(
+            note,
+            0.45,
+            0.025,
+            "triangle"
+        );
+
+        /*
+           Kratak "radar" zvuk
+           svaka četiri koraka.
+        */
+
+        if (musicStep % 4 === 2) {
+
+            setTimeout(function() {
+
+                tone(
+                    660,
+                    0.08,
+                    0.018,
+                    "sine"
+                );
+
+            }, 260);
+        }
+
+        musicStep++;
+    }
+
+    playMusicStep();
+
+    musicTimer =
+        setInterval(
+            playMusicStep,
+            650
+        );
+}
+
+
+/* ==============================
+   SOUND EFFECTS
+============================== */
+
+function correctSound() {
+
+    tone(650, 0.12, 0.12);
+
+    setTimeout(function() {
+        tone(850, 0.14, 0.12);
+    }, 120);
+
+    setTimeout(function() {
+        tone(1150, 0.22, 0.14);
+    }, 260);
+}
+
+
+function wrongSound() {
+
+    tone(
+        210,
+        0.25,
+        0.16,
+        "sawtooth"
+    );
+
+    setTimeout(function() {
+
+        tone(
+            145,
+            0.4,
+            0.15,
+            "sawtooth"
+        );
+
+    }, 180);
+}
+
+
+function timerTick() {
+
+    tone(
+        650,
+        0.045,
+        0.055,
+        "square"
+    );
+}
+
+
+function dangerTick() {
+
+    tone(
+        1050,
+        0.07,
+        0.11,
+        "square"
+    );
+
+    setTimeout(function() {
+
+        tone(
+            1050,
+            0.07,
+            0.11,
+            "square"
+        );
+
+    }, 130);
+}
+
+
+function timeoutSound() {
+
+    tone(
+        300,
+        0.3,
+        0.17,
+        "sawtooth"
+    );
+
+    setTimeout(function() {
+
+        tone(
+            220,
+            0.35,
+            0.17,
+            "sawtooth"
+        );
+
+    }, 300);
+
+    setTimeout(function() {
+
+        tone(
+            140,
+            0.7,
+            0.18,
+            "sawtooth"
+        );
+
+    }, 650);
+}
+
+
+/* ==============================
+   SCREENS
+============================== */
+
 function hideAll() {
 
     const screens = [
+
         "startScreen",
+        "analysisScreen",
         "clue1",
         "clue2",
         "clue3",
@@ -598,12 +834,15 @@ function hideAll() {
         "unlockedScreen",
         "timerScreen",
         "timeoutScreen"
+
     ];
 
     screens.forEach(function(id) {
+
         document
             .getElementById(id)
             .classList.add("hidden");
+
     });
 }
 
@@ -622,6 +861,38 @@ function showScreen(id) {
     });
 }
 
+
+/* ==============================
+   START
+============================== */
+
+function startMission() {
+
+    getAudioContext();
+
+    /*
+       Kratak start signal
+    */
+
+    tone(500, 0.1, 0.1);
+
+    setTimeout(function() {
+        tone(750, 0.1, 0.1);
+    }, 120);
+
+    setTimeout(function() {
+        tone(1000, 0.18, 0.12);
+    }, 240);
+
+    startBackgroundMusic();
+
+    showScreen("analysisScreen");
+}
+
+
+/* ==============================
+   CLUES
+============================== */
 
 function showClue1() {
     showScreen("clue1");
@@ -643,61 +914,170 @@ function showZoneCheck() {
     showScreen("zoneCheck");
 }
 
+
+/* ==============================
+   ZONE
+============================== */
+
 function wrongZone() {
-    showScreen("wrongZoneScreen");
+
+    wrongSound();
+
+    showScreen(
+        "wrongZoneScreen"
+    );
 }
+
 
 function correctZone() {
-    showScreen("bathroomScreen");
+
+    correctSound();
+
+    showScreen(
+        "bathroomScreen"
+    );
 }
+
 
 function showBathroom() {
-    showScreen("bathroomScreen");
+
+    showScreen(
+        "bathroomScreen"
+    );
 }
+
+
+/* ==============================
+   LOCATION
+============================== */
 
 function wrongLocation() {
-    showScreen("wrongLocationScreen");
+
+    wrongSound();
+
+    showScreen(
+        "wrongLocationScreen"
+    );
 }
+
 
 function correctLocation() {
-    showScreen("unlockedScreen");
+
+    correctSound();
+
+    showScreen(
+        "unlockedScreen"
+    );
 }
 
+
+/* ==============================
+   TIMER
+============================== */
 
 function startTimer() {
 
-    showScreen("timerScreen");
+    getAudioContext();
+
+    showScreen(
+        "timerScreen"
+    );
 
     let seconds = 90;
 
     const timer =
-        document.getElementById("timer");
+        document.getElementById(
+            "timer"
+        );
 
     timer.textContent = "01:30";
 
-    const countdown = setInterval(function() {
 
-        seconds--;
+    /*
+       Dramatični start
+    */
 
-        const minutes =
-            Math.floor(seconds / 60);
+    tone(700, 0.1, 0.1);
 
-        const remainingSeconds =
-            seconds % 60;
+    setTimeout(function() {
+        tone(900, 0.1, 0.1);
+    }, 150);
 
-        timer.textContent =
-            String(minutes).padStart(2, "0")
-            + ":"
-            + String(remainingSeconds).padStart(2, "0");
+    setTimeout(function() {
+        tone(1200, 0.2, 0.12);
+    }, 300);
 
-        if (seconds <= 0) {
 
-            clearInterval(countdown);
+    const countdown =
+        setInterval(function() {
 
-            showScreen("timeoutScreen");
-        }
+            seconds--;
 
-    }, 1000);
+            const minutes =
+                Math.floor(
+                    seconds / 60
+                );
+
+            const remaining =
+                seconds % 60;
+
+            timer.textContent =
+                String(minutes)
+                    .padStart(2, "0")
+                + ":"
+                + String(remaining)
+                    .padStart(2, "0");
+
+
+            /*
+               Normalan timer
+            */
+
+            if (
+                seconds > 10 &&
+                seconds % 2 === 0
+            ) {
+
+                timerTick();
+            }
+
+
+            /*
+               POSLEDNJIH 10 SEKUNDI
+            */
+
+            if (
+                seconds <= 10 &&
+                seconds > 0
+            ) {
+
+                dangerTick();
+
+                timer.style.color =
+                    seconds % 2 === 0
+                    ? "#ffffff"
+                    : "#ff2525";
+            }
+
+
+            /*
+               TIMEOUT
+            */
+
+            if (seconds <= 0) {
+
+                clearInterval(
+                    countdown
+                );
+
+                timeoutSound();
+
+                showScreen(
+                    "timeoutScreen"
+                );
+            }
+
+        }, 1000);
 }
 
 </script>
