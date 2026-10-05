@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Misija 11</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    background:
+        radial-gradient(circle at center, #1b0808 0%, #090202 48%, #000 100%);
+
+    color: #e6dcc8;
+
+    font-family: "Courier New", monospace;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow-x: hidden;
+}
+
+
+/* CRT LINIJE */
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(255,255,255,.018),
+            rgba(255,255,255,.018) 1px,
+            transparent 1px,
+            transparent 3px
+        );
+
+}
+
+
+/* CRVENI SCANNER */
+
+.scanner {
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background: #8d1515;
+
+    box-shadow:
+        0 0 8px #c22121,
+        0 0 18px rgba(194,33,33,.5);
+
+    opacity: .35;
+
+    animation: scan 7s linear infinite;
+
+    pointer-events: none;
+}
+
+@keyframes scan {
+
+    from {
+        top: 0;
+    }
+
+    to {
+        top: 100vh;
+    }
+
+}
+
+
+.container {
+
+    width: 92%;
+    max-width: 680px;
+
+    text-align: center;
+
+    padding:
+        70px 18px
+        45px;
+
+}
+
+
+.mission {
+
+    color: #b68a3c;
+
+    font-size: 12px;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 12px;
+
+}
+
+
+h1 {
+
+    color: #d6a94c;
+
+    font-size: 27px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 30px;
+
+    text-shadow:
+        0 0 10px rgba(214,169,76,.4);
+
+}
+
+
+.warning {
+
+    border:
+        1px solid #8b1717;
+
+    background:
+        rgba(120,0,0,.12);
+
+    padding: 20px;
+
+    color: #d9c5a1;
+
+    line-height: 1.7;
+
+    margin-bottom: 28px;
+
+}
+
+
+.warning-title {
+
+    color: #e04747;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.terminal {
+
+    background:
+        rgba(0,0,0,.65);
+
+    border:
+        1px solid #49311b;
+
+    text-align: left;
+
+    padding: 20px;
+
+    margin:
+        25px 0;
+
+    box-shadow:
+        inset 0 0 25px
+        rgba(0,0,0,.8);
+
+}
+
+
+.terminal-header {
+
+    color: #a47b35;
+
+    border-bottom:
+        1px solid #442c18;
+
+    padding-bottom: 12px;
+
+    margin-bottom: 15px;
+
+    letter-spacing: 2px;
+
+    font-size: 12px;
+
+}
+
+
+.data {
+
+    line-height: 1.9;
+
+    font-size: 14px;
+
+    color: #c9bea9;
+
+}
+
+
+.label {
+
+    color: #9e762f;
+
+    display: inline-block;
+
+    width: 175px;
+
+}
+
+
+.red {
+
+    color: #d94646;
+
+}
+
+
+.gold {
+
+    color: #d6a94c;
+
+}
+
+
+.socks {
+
+    margin-top: 10px;
+
+    color: #d5b675;
+
+    border-top:
+        1px dashed #4e351d;
+
+    padding-top: 10px;
+
+}
+
+
+.question {
+
+    margin:
+        30px 0 10px;
+
+    color: #ded1ba;
+
+    line-height: 1.7;
+
+}
+
+
+input {
+
+    width: 100%;
+    max-width: 340px;
+
+    padding: 15px;
+
+    margin-top: 15px;
+
+    background: #050101;
+
+    border:
+        1px solid #b68a3c;
+
+    color: #ddb458;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size: 19px;
+
+    text-align: center;
+
+    text-transform: uppercase;
+
+    letter-spacing: 3px;
+
+    outline: none;
+
+}
+
+
+input:focus {
+
+    box-shadow:
+        0 0 18px
+        rgba(214,169,76,.25);
+
+}
+
+
+button {
+
+    display: block;
+
+    margin:
+        18px auto 0;
+
+    padding:
+        13px 24px;
+
+    background:
+        transparent;
+
+    border:
+        1px solid #b68a3c;
+
+    color: #d4a649;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+}
+
+
+button:hover {
+
+    background:
+        rgba(182,138,60,.08);
+
+}
+
+
+#soundButton {
+
+    position: fixed;
+
+    top: 15px;
+    right: 15px;
+
+    margin: 0;
+
+    padding:
+        9px 12px;
+
+    font-size: 11px;
+
+    z-index: 20;
+
+    background:
+        rgba(0,0,0,.9);
+
+    opacity: .75;
+
+}
+
+
+#message1,
+#message2 {
+
+    min-height: 42px;
+
+    margin-top: 20px;
+
+    font-weight: bold;
+
+}
+
+
+.error {
+
+    color: #e64646;
+
+    animation:
+        shake .3s;
+
+}
+
+
+/* =========================
+   DRUGI NIVO
+========================= */
+
+#level2 {
+
+    display: none;
+
+    animation:
+        reveal .8s ease;
+
+}
+
+
+.unlocked {
+
+    margin:
+        30px 0 20px;
+
+    padding:
+        18px;
+
+    border:
+        1px solid #8d6a2d;
+
+    color: #d4a84e;
+
+    letter-spacing: 2px;
+
+    background:
+        rgba(150,100,20,.05);
+
+}
+
+
+.codeInstruction {
+
+    margin:
+        25px 0;
+
+    padding:
+        20px;
+
+    border-left:
+        2px solid #a71e1e;
+
+    text-align: left;
+
+    color: #d0c4ae;
+
+    line-height: 1.9;
+
+}
+
+
+.codeInstruction strong {
+
+    color: #d8aa4c;
+
+}
+
+
+/* =========================
+   SUCCESS
+========================= */
+
+#success {
+
+    display: none;
+
+    animation:
+        reveal 1s ease;
+
+}
+
+
+.access {
+
+    color: #d5a947;
+
+    letter-spacing: 4px;
+
+    font-size: 13px;
+
+    margin-bottom: 18px;
+
+}
+
+
+.lock {
+
+    font-size: 55px;
+
+    margin:
+        20px 0;
+
+}
+
+
+.success-title {
+
+    color: #d8aa4c;
+
+    font-size: 28px;
+
+    text-shadow:
+        0 0 15px
+        rgba(216,170,76,.5);
+
+}
+
+
+.location {
+
+    margin:
+        30px 0;
+
+    padding:
+        25px;
+
+    border:
+        1px solid #941a1a;
+
+    background:
+        rgba(110,0,0,.12);
+
+    line-height: 1.8;
+
+}
+
+
+.location strong {
+
+    display: block;
+
+    margin-top: 12px;
+
+    color: #deb04e;
+
+    font-size: 25px;
+
+    letter-spacing: 2px;
+
+}
+
+
+.orders {
+
+    margin:
+        28px 0;
+
+    padding:
+        22px;
+
+    border:
+        1px solid #9b762f;
+
+    line-height: 1.8;
+
+    color: #d3c5ad;
+
+}
+
+
+.orders strong {
+
+    color: #dfae48;
+
+}
+
+
+.final {
+
+    margin-top: 30px;
+
+    color: #d9aa46;
+
+    font-weight: bold;
+
+    line-height: 1.8;
+
+}
+
+
+.classified {
+
+    margin-top: 40px;
+
+    color: #8e1919;
+
+    font-size: 12px;
+
+    letter-spacing: 3px;
+
+}
+
+
+/* ANIMACIJE */
+
+@keyframes shake {
+
+    0%,100% {
+        transform:
+            translateX(0);
+    }
+
+    25% {
+        transform:
+            translateX(-7px);
+    }
+
+    75% {
+        transform:
+            translateX(7px);
+    }
+
+}
+
+
+@keyframes reveal {
+
+    from {
+        opacity: 0;
+        transform:
+            scale(.96);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            scale(1);
+    }
+
+}
+
+
+.glitch {
+
+    animation:
+        glitch .15s 6;
+
+}
+
+
+@keyframes glitch {
+
+    0% {
+        transform:
+            translate(0);
+    }
+
+    25% {
+        transform:
+            translate(4px,-2px);
+    }
+
+    50% {
+        transform:
+            translate(-4px,2px);
+    }
+
+    75% {
+        transform:
+            translate(2px,1px);
+    }
+
+    100% {
+        transform:
+            translate(0);
+    }
+
+}
+
+
+@media(max-width:500px) {
+
+    .label {
+
+        width: 150px;
+
+    }
+
+    .data {
+
+        font-size: 12px;
+
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="scanner"></div>
+
+
+<button
+id="soundButton"
+onclick="toggleSound()">
+
+🔊 ISKLJUČI TON
+
+</button>
+
+
+
+<!-- =================================
+     NIVO 1
+================================= -->
+
+<div
+class="container"
+id="level1">
+
+
+<div class="mission">
+
+TAJNA OPERACIJA // MISIJA 11
+
+</div>
+
+
+<h1>
+
+CIKLUS 404
+
+</h1>
+
+
+<div class="warning">
+
+<div class="warning-title">
+
+⚠ OTKRIVEN NEPOZNATI UREĐAJ
+
+</div>
+
+Sledeći signal je zarobljen
+u uređaju čiji je identitet
+obrisan iz sistema.
+
+<br><br>
+
+Uspeli smo da povratimo samo
+<strong>deo tehničkog zapisa.</strong>
+
+</div>
+
+
+
+<div class="terminal">
+
+
+<div class="terminal-header">
+
+DEVICE_RECOVERY_LOG // 11-404
+
+</div>
+
+
+<div class="data">
+
+<div>
+
+<span class="label">
+STATUS:
+</span>
+
+<span class="red">
+ISKLJUČEN
+</span>
+
+</div>
+
+
+<div>
+
+<span class="label">
+OBLIK:
+</span>
+
+□
+
+</div>
+
+
+<div>
+
+<span class="label">
+ULAZ:
+</span>
+
+1
+
+</div>
+
+
+<div>
+
+<span class="label">
+PROZOR:
+</span>
+
+1
+
+</div>
+
+
+<div>
+
+<span class="label">
+KRETANJE:
+</span>
+
+KRUŽNO
+
+</div>
+
+
+<div>
+
+<span class="label">
+BRZINA:
+</span>
+
+DO 1.400 OBRTAJA
+
+</div>
+
+
+<div>
+
+<span class="label">
+TERET:
+</span>
+
+NESTAJE PRLJAV
+
+</div>
+
+
+<div>
+
+<span class="label">
+POVRATAK:
+</span>
+
+VRAĆA SE ČIST
+
+</div>
+
+
+<div class="socks">
+
+<span class="label">
+NESTALE ČARAPE:
+</span>
+
+<span class="gold">
+SUMNJIVO VISOK BROJ
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="question">
+
+Na osnovu pronađenih podataka:
+
+<br><br>
+
+<strong>
+
+IDENTIFIKUJTE UREĐAJ.
+
+</strong>
+
+</div>
+
+
+<input
+id="deviceAnswer"
+type="text"
+autocomplete="off"
+placeholder="UREĐAJ">
+
+
+<button
+onclick="checkDevice()">
+
+IDENTIFIKUJ
+
+</button>
+
+
+<div id="message1"></div>
+
+
+
+<!-- =================================
+     NIVO 2
+================================= -->
+
+<div id="level2">
+
+
+<div class="unlocked">
+
+✓ UREĐAJ IDENTIFIKOVAN
+
+<br><br>
+
+<span class="red">
+
+PRISTUP I DALJE ZAKLJUČAN
+
+</span>
+
+</div>
+
+
+<div class="warning">
+
+<div class="warning-title">
+
+⚠ POTREBAN SIGURNOSNI KOD
+
+</div>
+
+Identifikacija uređaja
+nije dovoljna.
+
+<br><br>
+
+Za otkrivanje lokacije
+potreban je
+
+<strong>
+
+ČETVOROCIFRENI KOD.
+
+</strong>
+
+</div>
+
+
+
+<div class="codeInstruction">
+
+Iz tehničkog zapisa uzmite:
+
+<br><br>
+
+<strong>1.</strong>
+broj PROZORA
+
+<br>
+
+<strong>2.</strong>
+broj ULAZA
+
+<br>
+
+<strong>3.</strong>
+prve DVE cifre
+maksimalnog broja obrtaja
+
+<br><br>
+
+<span class="gold">
+
+Unesite ih REDOM.
+
+<br>
+
+NE SABIRAJTE IH.
+
+</span>
+
+</div>
+
+
+<input
+id="codeAnswer"
+type="tel"
+inputmode="numeric"
+maxlength="4"
+autocomplete="off"
+placeholder="••••">
+
+
+<button
+onclick="checkCode()">
+
+OTKLJUČAJ LOKACIJU
+
+</button>
+
+
+<div id="message2"></div>
+
+</div>
+
+</div>
+
+
+
+<!-- =================================
+     SUCCESS
+================================= -->
+
+<div
+class="container"
+id="success">
+
+
+<div class="access">
+
+// ACCESS GRANTED //
+
+</div>
+
+
+<div class="lock">
+
+🔓
+
+</div>
+
+
+<div class="success-title">
+
+UREĐAJ LOCIRAN
+
+</div>
+
+
+<div class="location">
+
+Sledeći signal nalazi se
+
+<strong>
+
+UNUTAR VEŠ MAŠINE
+
+</strong>
+
+</div>
+
+
+
+<div class="orders">
+
+⚠ <strong>BEZBEDNOSNO UPUTSTVO</strong>
+
+<br><br>
+
+Uređaj mora ostati
+
+<strong>ISKLJUČEN.</strong>
+
+<br><br>
+
+Otvorite samo vrata.
+
+<br>
+
+Ne pritiskajte dugmad.
+
+<br>
+
+Ne uključujte program.
+
+<br><br>
+
+<strong>
+
+SAMO JEDAN AGENT
+PREUZIMA KOVERTU.
+
+</strong>
+
+</div>
+
+
+<div class="final">
+
+PREUZMITE KOVERTU.
+
+<br><br>
+
+VRATITE SE TIMU.
+
+</div>
+
+
+<div class="classified">
+
+MISIJA 11 // SIGNAL PRONAĐEN
+
+</div>
+
+</div>
+
+
+
+<script>
+
+/* =================================
+   AUDIO
+================================= */
+
+let audioContext;
+
+let masterGain;
+
+let soundOn = true;
+
+let audioStarted = false;
+
+
+
+function startAmbient() {
+
+
+if(audioStarted)
+return;
+
+
+audioStarted = true;
+
+
+audioContext =
+new(
+window.AudioContext ||
+window.webkitAudioContext
+)();
+
+
+masterGain =
+audioContext.createGain();
+
+
+masterGain.gain.value =
+0.11;
+
+
+masterGain.connect(
+audioContext.destination
+);
+
+
+
+const frequencies = [
+
+65.41,
+
+98,
+
+130.81,
+
+164.81
+
+];
+
+
+frequencies.forEach(
+(freq,index)=>{
+
+
+const osc =
+audioContext.createOscillator();
+
+
+const gain =
+audioContext.createGain();
+
+
+
+if(index === 0){
+
+osc.type =
+"sine";
+
+gain.gain.value =
+0.20;
+
+}
+
+else{
+
+osc.type =
+"triangle";
+
+gain.gain.value =
+0.028;
+
+}
+
+
+osc.frequency.value =
+freq;
+
+
+osc.connect(gain);
+
+gain.connect(masterGain);
+
+osc.start();
+
+});
+
+
+
+const lfo =
+audioContext.createOscillator();
+
+
+const lfoGain =
+audioContext.createGain();
+
+
+lfo.frequency.value =
+0.05;
+
+
+lfoGain.gain.value =
+0.025;
+
+
+lfo.connect(lfoGain);
+
+lfoGain.connect(
+masterGain.gain
+);
+
+
+lfo.start();
+
+}
+
+
+
+/* SOUND BUTTON */
+
+function toggleSound(){
+
+
+startAmbient();
+
+
+soundOn =
+!soundOn;
+
+
+if(soundOn){
+
+
+masterGain.gain
+.setTargetAtTime(
+
+0.11,
+
+audioContext.currentTime,
+
+0.3
+
+);
+
+
+document
+.getElementById(
+"soundButton"
+)
+.innerText =
+
+"🔊 ISKLJUČI TON";
+
+
+}
+
+else{
+
+
+masterGain.gain
+.setTargetAtTime(
+
+0,
+
+audioContext.currentTime,
+
+0.3
+
+);
+
+
+document
+.getElementById(
+"soundButton"
+)
+.innerText =
+
+"🔇 UKLJUČI TON";
+
+
+}
+
+}
+
+
+
+/* prvi dodir */
+
+document.addEventListener(
+
+"click",
+
+function(){
+
+if(!audioStarted)
+startAmbient();
+
+},
+
+{once:true}
+
+);
+
+
+document.addEventListener(
+
+"touchstart",
+
+function(){
+
+if(!audioStarted)
+startAmbient();
+
+},
+
+{once:true}
+
+);
+
+
+
+/* =================================
+   ERROR SOUND
+================================= */
+
+function errorSound(){
+
+
+if(
+!soundOn ||
+!audioContext
+)
+return;
+
+
+const osc =
+audioContext
+.createOscillator();
+
+
+const gain =
+audioContext
+.createGain();
+
+
+osc.type =
+"sawtooth";
+
+
+osc.frequency
+.setValueAtTime(
+
+180,
+
+audioContext.currentTime
+
+);
+
+
+osc.frequency
+.exponentialRampToValueAtTime(
+
+80,
+
+audioContext.currentTime
++ .3
+
+);
+
+
+gain.gain
+.setValueAtTime(
+
+.07,
+
+audioContext.currentTime
+
+);
+
+
+gain.gain
+.exponentialRampToValueAtTime(
+
+.001,
+
+audioContext.currentTime
++ .3
+
+);
+
+
+osc.connect(gain);
+
+gain.connect(
+audioContext.destination
+);
+
+
+osc.start();
+
+
+osc.stop(
+
+audioContext.currentTime
++ .3
+
+);
+
+}
+
+
+
+/* =================================
+   SUCCESS SOUND
+================================= */
+
+function successSound(){
+
+
+if(
+!soundOn ||
+!audioContext
+)
+return;
+
+
+const notes = [
+
+392,
+
+493.88,
+
+587.33,
+
+783.99
+
+];
+
+
+notes.forEach(
+(freq,i)=>{
+
+
+const osc =
+audioContext
+.createOscillator();
+
+
+const gain =
+audioContext
+.createGain();
+
+
+osc.type =
+"sine";
+
+
+osc.frequency.value =
+freq;
+
+
+const start =
+
+audioContext.currentTime
++
+(i * .12);
+
+
+gain.gain
+.setValueAtTime(
+
+.001,
+
+start
+
+);
+
+
+gain.gain
+.linearRampToValueAtTime(
+
+.11,
+
+start + .03
+
+);
+
+
+gain.gain
+.exponentialRampToValueAtTime(
+
+.001,
+
+start + .55
+
+);
+
+
+osc.connect(gain);
+
+gain.connect(
+audioContext.destination
+);
+
+
+osc.start(start);
+
+
+osc.stop(
+start + .6
+);
+
+
+});
+
+}
+
+
+
+/* =================================
+   LEVEL 1
+================================= */
+
+function checkDevice(){
+
+
+startAmbient();
+
+
+let answer =
+
+document
+.getElementById(
+"deviceAnswer"
+)
+.value
+.trim()
+.toUpperCase();
+
+
+
+answer =
+answer
+
+.replaceAll("Š","S")
+
+.replaceAll("Ć","C")
+
+.replaceAll("Č","C")
+
+.replaceAll("Ž","Z")
+
+.replaceAll("Đ","DJ")
+
+.replace(/\s+/g," ");
+
+
+
+const answers = [
+
+"VES MASINA",
+
+"VESMASINA",
+
+"MASINA ZA VES",
+
+"MASINA",
+
+"ВЕШ МАШИНА",
+
+"МАШИНА ЗА ВЕШ"
+
+];
+
+
+const message =
+
+document
+.getElementById(
+"message1"
+);
+
+
+
+if(
+answers.includes(answer)
+){
+
+
+successSound();
+
+
+message.innerHTML =
+
+"<span class='gold'>" +
+"✓ IDENTITET POTVRĐEN" +
+"</span>";
+
+
+
+setTimeout(()=>{
+
+
+document
+.getElementById(
+"level2"
+)
+.style.display =
+"block";
+
+
+document
+.getElementById(
+"level2"
+)
+.scrollIntoView({
+
+behavior:"smooth",
+
+block:"start"
+
+});
+
+
+},600);
+
+
+}
+
+else{
+
+
+errorSound();
+
+
+message.className =
+"error";
+
+
+message.innerHTML =
+
+"✕ IDENTIFIKACIJA NEUSPEŠNA" +
+
+"<br>" +
+
+"<span style='" +
+"font-size:12px;" +
+"color:#9f9380'>" +
+
+"Analizirajte tehnički zapis ponovo." +
+
+"</span>";
+
+
+setTimeout(()=>{
+
+message.className = "";
+
+},500);
+
+
+}
+
+}
+
+
+
+/* =================================
+   LEVEL 2
+================================= */
+
+function checkCode(){
+
+
+startAmbient();
+
+
+const code =
+
+document
+.getElementById(
+"codeAnswer"
+)
+.value
+.trim();
+
+
+
+const message =
+
+document
+.getElementById(
+"message2"
+);
+
+
+
+if(
+code === "1114"
+){
+
+
+successSound();
+
+
+document
+.getElementById(
+"level1"
+)
+.classList
+.add(
+"glitch"
+);
+
+
+
+setTimeout(()=>{
+
+
+document
+.getElementById(
+"level1"
+)
+.style.display =
+"none";
+
+
+document
+.getElementById(
+"success"
+)
+.style.display =
+"block";
+
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+
+},750);
+
+
+}
+
+else{
+
+
+errorSound();
+
+
+message.className =
+"error";
+
+
+message.innerHTML =
+
+"✕ KOD ODBIJEN" +
+
+"<br>" +
+
+"<span style='" +
+"font-size:12px;" +
+"color:#9f9380'>" +
+
+"Ne sabirajte brojeve. " +
+"Unesite ih redom." +
+
+"</span>";
+
+
+setTimeout(()=>{
+
+message.className = "";
+
+},500);
+
+
+}
+
+}
+
+
+
+/* ENTER NA PRVOM NIVOU */
+
+document
+.getElementById(
+"deviceAnswer"
+)
+.addEventListener(
+
+"keydown",
+
+function(event){
+
+if(
+event.key ===
+"Enter"
+){
+
+checkDevice();
+
+}
+
+}
+
+);
+
+
+
+/* ENTER NA DRUGOM NIVOU */
+
+document
+.getElementById(
+"codeAnswer"
+)
+.addEventListener(
+
+"keydown",
+
+function(event){
+
+if(
+event.key ===
+"Enter"
+){
+
+checkCode();
+
+}
+
+}
+
+);
+
+</script>
+
+</body>
+</html>

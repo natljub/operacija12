@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Misija 09</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at center, #250606 0%, #0d0202 48%, #030000 100%);
+    color: #eee4d0;
+    font-family: "Courier New", monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+/* scan lines */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(255,255,255,0.015),
+            rgba(255,255,255,0.015) 1px,
+            transparent 1px,
+            transparent 3px
+        );
+}
+
+.container {
+    width: 92%;
+    max-width: 680px;
+    text-align: center;
+    padding: 70px 20px 45px;
+}
+
+.mission {
+    color: #c99b45;
+    letter-spacing: 4px;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+h1 {
+    color: #e1b85b;
+    font-size: 26px;
+    margin-bottom: 30px;
+    text-shadow:
+        0 0 10px rgba(225,184,91,.4),
+        0 0 25px rgba(160,20,20,.3);
+}
+
+.alert {
+    border: 1px solid #8e1818;
+    background: rgba(110,0,0,.12);
+    padding: 18px;
+    margin-bottom: 28px;
+    color: #e3c18a;
+    line-height: 1.6;
+}
+
+.alert strong {
+    color: #e8b74f;
+}
+
+.text {
+    color: #d7cbb5;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.dossier {
+    margin: 30px 0;
+    border-top: 1px solid #7d1717;
+    border-bottom: 1px solid #7d1717;
+    background: rgba(0,0,0,.28);
+    padding: 25px 18px;
+    text-align: left;
+}
+
+.line {
+    margin: 14px 0;
+    line-height: 1.5;
+    color: #ddd2bd;
+}
+
+.first {
+    color: #d8a947;
+    font-size: 23px;
+    font-weight: bold;
+    margin-right: 2px;
+    text-shadow: 0 0 8px rgba(216,169,71,.4);
+}
+
+.hint {
+    margin: 25px 0;
+    padding: 17px;
+    border: 1px solid rgba(216,169,71,.35);
+    color: #d8a947;
+    letter-spacing: 1px;
+    line-height: 1.6;
+}
+
+input {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin-top: 18px;
+
+    background: #090202;
+    border: 1px solid #c99b45;
+
+    color: #e5bd64;
+
+    font-family: "Courier New", monospace;
+    font-size: 21px;
+
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+
+    outline: none;
+    border-radius: 3px;
+
+    box-shadow: 0 0 15px rgba(201,155,69,.08);
+}
+
+input:focus {
+    box-shadow: 0 0 20px rgba(201,155,69,.25);
+}
+
+button {
+    display: block;
+    margin: 18px auto 0;
+
+    padding: 13px 25px;
+
+    background: transparent;
+    border: 1px solid #c99b45;
+
+    color: #d8a947;
+
+    font-family: "Courier New", monospace;
+    font-weight: bold;
+
+    cursor: pointer;
+    letter-spacing: 1px;
+
+    border-radius: 3px;
+}
+
+button:hover {
+    background: rgba(201,155,69,.08);
+}
+
+#soundButton {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+
+    margin: 0;
+
+    font-size: 11px;
+    padding: 9px 12px;
+
+    z-index: 20;
+
+    background: rgba(5,0,0,.9);
+    opacity: .75;
+}
+
+#message {
+    min-height: 45px;
+    margin-top: 22px;
+    font-weight: bold;
+}
+
+.error {
+    color: #ff4545;
+    animation: shake .3s;
+}
+
+/* SUCCESS SCREEN */
+
+.success {
+    display: none;
+    animation: appear 1s ease;
+}
+
+.access {
+    color: #e3b64e;
+    font-size: 14px;
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+}
+
+.success h2 {
+    color: #d9aa45;
+    font-size: 28px;
+    text-shadow:
+        0 0 12px rgba(217,170,69,.6),
+        0 0 25px rgba(150,0,0,.5);
+}
+
+.location {
+    margin: 30px 0;
+
+    padding: 25px 15px;
+
+    border: 1px solid #a41f1f;
+    background: rgba(120,0,0,.12);
+
+    color: #e6d6b8;
+
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.location strong {
+    display: block;
+
+    color: #e2b54e;
+
+    font-size: 25px;
+
+    margin-top: 10px;
+
+    letter-spacing: 3px;
+}
+
+.orders {
+    margin: 28px 0;
+
+    padding: 22px 15px;
+
+    border: 1px solid #c99b45;
+
+    color: #ddd0b7;
+
+    line-height: 1.7;
+}
+
+.orders strong {
+    color: #e1b04b;
+}
+
+.final {
+    margin-top: 28px;
+
+    color: #e2b54e;
+
+    font-weight: bold;
+
+    line-height: 1.7;
+}
+
+.classified {
+    margin-top: 38px;
+
+    color: #a82121;
+
+    font-size: 13px;
+
+    letter-spacing: 3px;
+}
+
+/* scanner */
+
+.scanner {
+    width: 100%;
+    height: 2px;
+
+    background: rgba(170,20,20,.5);
+
+    box-shadow:
+        0 0 8px #a31515;
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+
+    animation: scan 8s linear infinite;
+
+    opacity: .3;
+
+    pointer-events: none;
+}
+
+/* animations */
+
+@keyframes scan {
+    from { top: 0; }
+    to { top: 100vh; }
+}
+
+@keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-7px); }
+    75% { transform: translateX(7px); }
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: scale(.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.glitch {
+    animation: glitch .15s 6;
+}
+
+@keyframes glitch {
+
+    0% { transform: translate(0); }
+
+    20% { transform: translate(-4px,2px); }
+
+    40% { transform: translate(4px,-2px); }
+
+    60% { transform: translate(-2px,-1px); }
+
+    80% { transform: translate(3px,2px); }
+
+    100% { transform: translate(0); }
+}
+
+@media (max-width: 500px) {
+
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .line {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 23px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="scanner"></div>
+
+<button id="soundButton" onclick="toggleSound()">
+🔊 ISKLJUČI TON
+</button>
+
+
+<!-- =========================
+     MISIJA
+========================= -->
+
+<div class="container" id="main">
+
+    <div class="mission">
+        TAJNA OPERACIJA // MISIJA 09
+    </div>
+
+    <h1>DOSIJE SLAVLJENICE</h1>
+
+
+    <div class="alert">
+
+        ⚠ <strong>PRISTUP TAJNOM DOSIJEU</strong>
+
+        <br><br>
+
+        Agenti, pronašli ste skrivenu poruku.
+
+        <br><br>
+
+        Sledeća koverta nalazi se na mestu
+        koje pripada
+
+        <strong>
+            NAJVAŽNIJOJ OSOBI DANAŠNJE OPERACIJE.
+        </strong>
+
+        <br><br>
+
+        Ali tačna lokacija je zaključana.
+
+    </div>
+
+
+    <div class="text">
+
+        Da biste je otkrili,
+        morate rešiti kod.
+
+    </div>
+
+
+    <div class="dossier">
+
+        <div class="line">
+            <span class="first">K</span>ad se misija završi,
+            tu se odmara.
+        </div>
+
+        <div class="line">
+            <span class="first">R</span>etko je namešten
+            onako kako roditelji žele.
+        </div>
+
+        <div class="line">
+            <span class="first">E</span>kipi nije dozvoljeno
+            da ga pretražuje bez dozvole.
+        </div>
+
+        <div class="line">
+            <span class="first">V</span>ečeras pripada
+            glavnoj osobi ove operacije.
+        </div>
+
+        <div class="line">
+            <span class="first">E</span>to mesta
+            gde se krije sledeći trag.
+        </div>
+
+        <div class="line">
+            <span class="first">T</span>ražite tamo
+            gde slavljenica spava.
+        </div>
+
+    </div>
+
+
+    <div class="hint">
+
+        🔐 TRAG:
+
+        <br><br>
+
+        <strong>
+            PRVI ZNAK SVAKOG REDA
+            ČUVA ODGOVOR.
+        </strong>
+
+    </div>
+
+
+    <div class="text">
+        Unesite otkrivenu lokaciju:
+    </div>
+
+
+    <input
+        id="answer"
+        type="text"
+        autocomplete="off"
+        placeholder="LOKACIJA"
+    >
+
+
+    <button onclick="checkAnswer()">
+        OTKLJUČAJ DOSIJE
+    </button>
+
+
+    <div id="message"></div>
+
+</div>
+
+
+
+<!-- =========================
+     SUCCESS
+========================= -->
+
+<div class="container success" id="success">
+
+    <div class="access">
+        // ACCESS GRANTED //
+    </div>
+
+    <h2>
+        ✓ LOKACIJA OTKRIVENA
+    </h2>
+
+
+    <div class="location">
+
+        Sledeća koverta nalazi se na
+
+        <strong>
+            KREVETU SLAVLJENICE
+        </strong>
+
+    </div>
+
+
+    <div class="orders">
+
+        ⚠ <strong>POSEBNO NAREĐENJE</strong>
+
+        <br><br>
+
+        Ovog puta u potragu kreće
+
+        <br>
+
+        <strong>
+            SLAVLJENICA.
+        </strong>
+
+        <br><br>
+
+        Ona bira
+
+        <strong>
+            JEDNOG AGENTA
+        </strong>
+
+        koji ide sa njom.
+
+        <br><br>
+
+        Svi ostali agenti
+        <strong>OSTAJU NA MESTU.</strong>
+
+    </div>
+
+
+    <div class="final">
+
+        Pronađite kovertu.
+
+        <br><br>
+
+        ⚠ Ne otvarajte je tamo.
+
+        <br>
+
+        Donesite je nazad svom timu.
+
+    </div>
+
+
+    <div class="classified">
+        MISIJA 09 // LOKACIJA OTKRIVENA
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* ======================================
+   AMBIENT MUZIKA
+====================================== */
+
+let audioContext;
+let masterGain;
+let soundOn = true;
+let audioStarted = false;
+
+
+function startAmbient() {
+
+    if (audioStarted) return;
+
+    audioStarted = true;
+
+    audioContext =
+        new (window.AudioContext ||
+             window.webkitAudioContext)();
+
+
+    masterGain =
+        audioContext.createGain();
+
+
+    /*
+       Glasnoća.
+       Ostavljamo približno kao Misiju 08.
+    */
+
+    masterGain.gain.value = 0.11;
+
+    masterGain.connect(
+        audioContext.destination
+    );
+
+
+    /*
+       Tamni filmski ambient.
+       Bez ritma i udaraca.
+    */
+
+    const frequencies = [
+        65.41,
+        98.00,
+        130.81,
+        164.81
+    ];
+
+
+    frequencies.forEach(
+        (freq, index) => {
+
+        const osc =
+            audioContext.createOscillator();
+
+        const gain =
+            audioContext.createGain();
+
+
+        if (index === 0) {
+
+            osc.type = "sine";
+            gain.gain.value = 0.20;
+
+        } else {
+
+            osc.type = "triangle";
+            gain.gain.value = 0.028;
+
+        }
+
+
+        osc.frequency.value = freq;
+
+        osc.connect(gain);
+
+        gain.connect(masterGain);
+
+        osc.start();
+
+    });
+
+
+    /*
+       Veoma sporo "disanje" zvuka.
+    */
+
+    const lfo =
+        audioContext.createOscillator();
+
+    const lfoGain =
+        audioContext.createGain();
+
+
+    lfo.frequency.value = 0.05;
+
+    lfoGain.gain.value = 0.025;
+
+
+    lfo.connect(lfoGain);
+
+    lfoGain.connect(
+        masterGain.gain
+    );
+
+    lfo.start();
+
+}
+
+
+/* ======================================
+   SOUND ON / OFF
+====================================== */
+
+function toggleSound() {
+
+    startAmbient();
+
+    soundOn = !soundOn;
+
+
+    if (soundOn) {
+
+        masterGain.gain.setTargetAtTime(
+            0.11,
+            audioContext.currentTime,
+            0.3
+        );
+
+        document
+            .getElementById("soundButton")
+            .innerText =
+            "🔊 ISKLJUČI TON";
+
+    }
+
+    else {
+
+        masterGain.gain.setTargetAtTime(
+            0,
+            audioContext.currentTime,
+            0.3
+        );
+
+        document
+            .getElementById("soundButton")
+            .innerText =
+            "🔇 UKLJUČI TON";
+
+    }
+
+}
+
+
+/*
+   Browser traži prvu interakciju
+   pre puštanja zvuka.
+*/
+
+document.addEventListener(
+    "click",
+    function() {
+
+        if (!audioStarted) {
+            startAmbient();
+        }
+
+    },
+    { once: true }
+);
+
+
+document.addEventListener(
+    "touchstart",
+    function() {
+
+        if (!audioStarted) {
+            startAmbient();
+        }
+
+    },
+    { once: true }
+);
+
+
+
+/* ======================================
+   ERROR SOUND
+====================================== */
+
+function errorSound() {
+
+    if (!soundOn || !audioContext)
+        return;
+
+
+    const osc =
+        audioContext.createOscillator();
+
+    const gain =
+        audioContext.createGain();
+
+
+    osc.type = "sawtooth";
+
+
+    osc.frequency.setValueAtTime(
+        180,
+        audioContext.currentTime
+    );
+
+
+    osc.frequency
+        .exponentialRampToValueAtTime(
+            80,
+            audioContext.currentTime + 0.3
+        );
+
+
+    gain.gain.setValueAtTime(
+        0.07,
+        audioContext.currentTime
+    );
+
+
+    gain.gain
+        .exponentialRampToValueAtTime(
+            0.001,
+            audioContext.currentTime + 0.3
+        );
+
+
+    osc.connect(gain);
+
+    gain.connect(
+        audioContext.destination
+    );
+
+
+    osc.start();
+
+    osc.stop(
+        audioContext.currentTime + 0.3
+    );
+
+}
+
+
+
+/* ======================================
+   SUCCESS SOUND
+====================================== */
+
+function successSound() {
+
+    if (!soundOn || !audioContext)
+        return;
+
+
+    const notes = [
+        392,
+        493.88,
+        587.33,
+        783.99
+    ];
+
+
+    notes.forEach(
+        (freq, i) => {
+
+        const osc =
+            audioContext.createOscillator();
+
+        const gain =
+            audioContext.createGain();
+
+
+        osc.type = "sine";
+
+        osc.frequency.value = freq;
+
+
+        const start =
+            audioContext.currentTime +
+            (i * 0.12);
+
+
+        gain.gain.setValueAtTime(
+            0.001,
+            start
+        );
+
+
+        gain.gain.linearRampToValueAtTime(
+            0.11,
+            start + 0.03
+        );
+
+
+        gain.gain
+            .exponentialRampToValueAtTime(
+                0.001,
+                start + 0.55
+            );
+
+
+        osc.connect(gain);
+
+        gain.connect(
+            audioContext.destination
+        );
+
+
+        osc.start(start);
+
+        osc.stop(
+            start + 0.6
+        );
+
+    });
+
+}
+
+
+
+/* ======================================
+   PROVERA ODGOVORA
+====================================== */
+
+function checkAnswer() {
+
+    startAmbient();
+
+
+    let answer =
+        document
+            .getElementById("answer")
+            .value
+            .trim()
+            .toUpperCase();
+
+
+    /*
+       Dozvoljavamo:
+       KREVET
+       КРЕВЕТ
+    */
+
+    const correctAnswers = [
+        "KREVET",
+        "КРЕВЕТ"
+    ];
+
+
+    const message =
+        document
+            .getElementById("message");
+
+
+    if (
+        correctAnswers.includes(answer)
+    ) {
+
+        successSound();
+
+
+        document
+            .getElementById("main")
+            .classList
+            .add("glitch");
+
+
+        setTimeout(() => {
+
+            document
+                .getElementById("main")
+                .style.display =
+                "none";
+
+
+            document
+                .getElementById("success")
+                .style.display =
+                "block";
+
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }, 750);
+
+    }
+
+    else {
+
+        errorSound();
+
+
+        message.className =
+            "error";
+
+
+        message.innerHTML =
+            "✕ PRISTUP ODBIJEN" +
+            "<br>" +
+            "<span style='" +
+            "font-size:12px;" +
+            "color:#a99b87'>" +
+            "Kod nije tačan. " +
+            "Pogledajte trag još jednom." +
+            "</span>";
+
+
+        setTimeout(() => {
+
+            message.className = "";
+
+        }, 500);
+
+    }
+
+}
+
+
+
+/* ENTER = potvrda */
+
+document
+    .getElementById("answer")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                checkAnswer();
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+</html>
