@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Operacija 12 — Misija 03</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top, #300000 0%, #100000 35%, #030303 75%);
+    color: #f4e6bd;
+    font-family: "Courier New", monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.terminal {
+    width: 100%;
+    max-width: 650px;
+    background: rgba(5,5,5,.96);
+    border: 2px solid #d4af37;
+    border-radius: 12px;
+    padding: 28px 22px;
+    box-shadow:
+        0 0 25px rgba(212,175,55,.2),
+        0 0 50px rgba(200,0,0,.15);
+    text-align: center;
+}
+
+.top-secret {
+    color: #ff2525;
+    letter-spacing: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+h1 {
+    color: #d4af37;
+    letter-spacing: 4px;
+    font-size: clamp(32px, 9vw, 55px);
+    margin: 12px 0 5px;
+}
+
+.mission {
+    color: #ff2525;
+    letter-spacing: 4px;
+    font-weight: bold;
+}
+
+.divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    margin: 25px 0;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.gold {
+    color: #d4af37;
+    font-weight: bold;
+}
+
+.red {
+    color: #ff2525;
+    font-weight: bold;
+}
+
+.green {
+    color: #38e878;
+    font-weight: bold;
+}
+
+.box {
+    border: 1px solid #8e0000;
+    background: #100000;
+    padding: 20px;
+    margin: 22px 0;
+    border-radius: 7px;
+}
+
+input {
+    width: 100%;
+    padding: 17px;
+    margin: 15px 0;
+    background: #050505;
+    color: #f4e6bd;
+    border: 2px solid #d4af37;
+    border-radius: 6px;
+    text-align: center;
+    font-family: inherit;
+    font-size: 24px;
+    text-transform: uppercase;
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 17px;
+    background: #151000;
+    color: #f4e6bd;
+    border: 1px solid #d4af37;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #2a2000;
+}
+
+.hidden {
+    display: none;
+}
+
+.small {
+    color: #8f7627;
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-top: 28px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="terminal">
+
+    <div class="top-secret">TOP SECRET</div>
+
+    <h1>OPERACIJA 12</h1>
+
+    <div class="mission">MISIJA 03/12</div>
+
+    <div class="divider"></div>
+
+    <p class="gold">AGENT 03</p>
+
+    <p>
+        Preuzimaš kontrolu nad telefonom.
+    </p>
+
+    <div id="challenge">
+
+        <div class="box">
+
+            <p class="red">
+                ⚠ PRESRETNUTA PORUKA JE RAZBIJENA
+            </p>
+
+            <p>
+                Pored ovog QR koda nalazi se
+                <b>6 delova poruke.</b>
+            </p>
+
+            <p>
+                Složite ih pravilnim redosledom
+                i otkrijte jednu reč.
+            </p>
+
+        </div>
+
+        <p class="red">
+            NE KREĆITE U PRETRAGU.
+        </p>
+
+        <p>
+            Kada rekonstruišete poruku,
+            unesite reč u sistem:
+        </p>
+
+        <input
+            type="text"
+            id="answer"
+            maxlength="10"
+            placeholder="_ _ _ _ _ _"
+            autocomplete="off"
+        >
+
+        <button onclick="checkAnswer()">
+            POTVRDI ODGOVOR
+        </button>
+
+        <p id="error" class="red hidden">
+            🚨 PRISTUP ODBIJEN<br><br>
+            Poruka nije pravilno rekonstruisana.
+        </p>
+
+    </div>
+
+    <div id="success" class="hidden">
+
+        <p class="green" style="font-size:26px;">
+            ✓ PORUKA REKONSTRUISANA
+        </p>
+
+        <div class="divider"></div>
+
+        <p class="gold" style="font-size:38px;">
+            KREVET
+        </p>
+
+        <p>
+            Odlično.
+        </p>
+
+        <p>
+            Ali postoji problem.
+        </p>
+
+        <div class="box">
+
+            <p>
+                U ovom stanu postoji
+                <b>više od jednog kreveta.</b>
+            </p>
+
+            <p class="red">
+                Sledeći QR NIJE kod kreveta slavljenice.
+            </p>
+
+            <p>
+                Pronađite drugi.
+            </p>
+
+        </div>
+
+        <p class="green" style="font-size:23px;">
+            🔓 PRETRAGA DOZVOLJENA
+        </p>
+
+        <p class="gold">
+            Tamo vas čeka MISIJA 04.
+        </p>
+
+    </div>
+
+    <div class="small">
+        OPERACIJA 12 // SIGURNOSNI PROTOKOL 03
+    </div>
+
+</div>
+
+<script>
+
+function checkAnswer() {
+
+    const answer = document
+        .getElementById("answer")
+        .value
+        .trim()
+        .toUpperCase();
+
+    if (answer === "KREVET") {
+
+        document
+            .getElementById("challenge")
+            .classList.add("hidden");
+
+        document
+            .getElementById("success")
+            .classList.remove("hidden");
+
+    } else {
+
+        document
+            .getElementById("error")
+            .classList.remove("hidden");
+    }
+}
+
+document
+    .getElementById("answer")
+    .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+            checkAnswer();
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
