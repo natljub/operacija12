@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Misija 07</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at center, #122018 0%, #07100c 45%, #020504 100%);
+      color: #d8ffe5;
+      font-family: "Courier New", monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,0.015),
+          rgba(255,255,255,0.015) 1px,
+          transparent 1px,
+          transparent 3px
+        );
+    }
+
+    .container {
+      width: 92%;
+      max-width: 650px;
+      text-align: center;
+      padding: 35px 22px;
+      position: relative;
+    }
+
+    .mission {
+      color: #58ff8a;
+      letter-spacing: 4px;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      color: #8affaa;
+      font-size: 25px;
+      margin: 0 0 30px;
+      text-shadow: 0 0 15px rgba(88,255,138,.4);
+    }
+
+    .alert {
+      color: #ffca58;
+      font-weight: bold;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+    }
+
+    .text {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #c8dfcf;
+    }
+
+    .cipher {
+      margin: 32px 0;
+      font-size: 38px;
+      font-weight: bold;
+      letter-spacing: 13px;
+      color: #58ff8a;
+      text-shadow: 0 0 15px rgba(88,255,138,.6);
+    }
+
+    .hint {
+      border: 1px solid rgba(88,255,138,.25);
+      background: rgba(88,255,138,.04);
+      padding: 18px;
+      margin: 25px 0;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .hint strong {
+      color: #ffca58;
+    }
+
+    input {
+      width: 100%;
+      max-width: 330px;
+      padding: 15px;
+      margin-top: 15px;
+      background: #050b08;
+      border: 1px solid #58ff8a;
+      color: #8affaa;
+      font-family: "Courier New", monospace;
+      font-size: 21px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      outline: none;
+      border-radius: 4px;
+      box-shadow: 0 0 15px rgba(88,255,138,.08);
+    }
+
+    input:focus {
+      box-shadow: 0 0 20px rgba(88,255,138,.25);
+    }
+
+    button {
+      display: block;
+      margin: 18px auto 0;
+      padding: 13px 25px;
+      background: transparent;
+      border: 1px solid #58ff8a;
+      color: #58ff8a;
+      font-family: "Courier New", monospace;
+      font-weight: bold;
+      cursor: pointer;
+      letter-spacing: 1px;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background: rgba(88,255,138,.1);
+    }
+
+    #soundButton {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      margin: 0;
+      font-size: 11px;
+      padding: 9px 12px;
+      opacity: .65;
+      z-index: 10;
+    }
+
+    #message {
+      min-height: 35px;
+      margin-top: 22px;
+      font-weight: bold;
+    }
+
+    .error {
+      color: #ff4d4d;
+      animation: shake .3s;
+    }
+
+    .success {
+      display: none;
+      padding: 30px 15px;
+      animation: appear 1s ease;
+    }
+
+    .success h2 {
+      color: #58ff8a;
+      font-size: 26px;
+      text-shadow: 0 0 18px rgba(88,255,138,.7);
+    }
+
+    .success .classified {
+      margin-top: 30px;
+      color: #ffca58;
+      font-size: 14px;
+      letter-spacing: 2px;
+    }
+
+    .scanner {
+      width: 100%;
+      height: 2px;
+      background: rgba(88,255,138,.4);
+      box-shadow: 0 0 8px #58ff8a;
+      position: fixed;
+      left: 0;
+      top: 0;
+      animation: scan 8s linear infinite;
+      opacity: .25;
+      pointer-events: none;
+    }
+
+    @keyframes scan {
+      from { top: 0; }
+      to { top: 100vh; }
+    }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-7px); }
+      75% { transform: translateX(7px); }
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: scale(.96);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .glitch {
+      animation: glitch .15s 5;
+    }
+
+    @keyframes glitch {
+      0% { transform: translate(0); }
+      25% { transform: translate(3px,-2px); }
+      50% { transform: translate(-3px,2px); }
+      75% { transform: translate(2px,1px); }
+      100% { transform: translate(0); }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="scanner"></div>
+
+<button id="soundButton" onclick="toggleSound()">🔊 ISKLJUČI TON</button>
+
+<div class="container" id="main">
+
+  <div class="mission">TAJNA OPERACIJA // MISIJA 07</div>
+
+  <h1>ŠIFROVANA LOKACIJA</h1>
+
+  <div class="alert">
+    ⚠ PRESRETNUT JE NOVI SIGNAL
+  </div>
+
+  <div class="text">
+    Sledeća lokacija je šifrovana.
+    <br><br>
+    Agent 07 je uspeo da ostavi samo jednu poruku:
+  </div>
+
+  <div class="cipher">
+    М П Л Ј З
+  </div>
+
+  <div class="hint">
+    <strong>AZBUKA JE KLJUČ.</strong>
+    <br><br>
+    Svako slovo je pomereno
+    <strong>3 mesta unapred.</strong>
+    <br>
+    Vratite ih na pravo mesto.
+  </div>
+
+  <div class="text">
+    Unesite dešifrovanu reč:
+  </div>
+
+  <input
+    id="answer"
+    type="text"
+    maxlength="6"
+    autocomplete="off"
+    placeholder="_____"
+  >
+
+  <button onclick="checkAnswer()">
+    DEŠIFRUJ
+  </button>
+
+  <div id="message"></div>
+
+</div>
+
+
+<div class="container success" id="success">
+
+  <div class="mission">DEŠIFROVANJE ZAVRŠENO</div>
+
+  <h2>✓ LOKACIJA IDENTIFIKOVANA</h2>
+
+  <div class="text">
+    Odlično, agenti.
+    <br><br>
+    Signal je potvrđen.
+    <br><br>
+    <strong>Pronađite mesto na koje vas vodi dešifrovana reč.</strong>
+    <br><br>
+    Tamo je sakrivena
+    <strong>sledeća koverta.</strong>
+  </div>
+
+  <div class="classified">
+    MISIJA 07 // ZAVRŠENA
+  </div>
+
+</div>
+
+
+<script>
+
+  /* -------------------------
+     AUDIO
+  ------------------------- */
+
+  let audioContext;
+  let masterGain;
+  let soundOn = true;
+  let audioStarted = false;
+
+  function startAmbient() {
+
+    if (audioStarted) return;
+
+    audioStarted = true;
+
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+    masterGain = audioContext.createGain();
+    masterGain.gain.value = 0.055;
+    masterGain.connect(audioContext.destination);
+
+    /*
+      Mekani misteriozni drone.
+      Nema bubnja / ritma / "tup tup".
+    */
+
+    const frequencies = [73.42, 110, 146.83];
+
+    frequencies.forEach((freq, index) => {
+
+      const osc = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+
+      osc.type = index === 0 ? "sine" : "triangle";
+      osc.frequency.value = freq;
+
+      gain.gain.value = index === 0 ? 0.18 : 0.035;
+
+      osc.connect(gain);
+      gain.connect(masterGain);
+
+      osc.start();
+
+    });
+
+    /*
+      Spora promena tona da muzika "diše".
+    */
+
+    const lfo = audioContext.createOscillator();
+    const lfoGain = audioContext.createGain();
+
+    lfo.frequency.value = 0.07;
+    lfoGain.gain.value = 0.018;
+
+    lfo.connect(lfoGain);
+    lfoGain.connect(masterGain.gain);
+
+    lfo.start();
+  }
+
+
+  function toggleSound() {
+
+    startAmbient();
+
+    soundOn = !soundOn;
+
+    if (soundOn) {
+      masterGain.gain.setTargetAtTime(
+        0.055,
+        audioContext.currentTime,
+        0.3
+      );
+
+      document.getElementById("soundButton").innerText =
+        "🔊 ISKLJUČI TON";
+
+    } else {
+
+      masterGain.gain.setTargetAtTime(
+        0,
+        audioContext.currentTime,
+        0.3
+      );
+
+      document.getElementById("soundButton").innerText =
+        "🔇 UKLJUČI TON";
+    }
+  }
+
+
+  /*
+    Browseri često ne dozvoljavaju zvuk
+    dok korisnik prvi put ne dodirne ekran.
+    Zato ga pokrećemo na prvi klik/touch.
+  */
+
+  document.addEventListener("click", function () {
+
+    if (!audioStarted) {
+      startAmbient();
+    }
+
+  }, { once: true });
+
+
+  document.addEventListener("touchstart", function () {
+
+    if (!audioStarted) {
+      startAmbient();
+    }
+
+  }, { once: true });
+
+
+
+  /* -------------------------
+     SOUND EFFECTS
+  ------------------------- */
+
+  function errorSound() {
+
+    if (!soundOn || !audioContext) return;
+
+    const osc = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+
+    osc.type = "sawtooth";
+
+    osc.frequency.setValueAtTime(
+      180,
+      audioContext.currentTime
+    );
+
+    osc.frequency.exponentialRampToValueAtTime(
+      90,
+      audioContext.currentTime + 0.25
+    );
+
+    gain.gain.setValueAtTime(
+      0.06,
+      audioContext.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      0.001,
+      audioContext.currentTime + 0.25
+    );
+
+    osc.connect(gain);
+    gain.connect(audioContext.destination);
+
+    osc.start();
+    osc.stop(audioContext.currentTime + 0.25);
+  }
+
+
+  function successSound() {
+
+    if (!soundOn || !audioContext) return;
+
+    const notes = [392, 523.25, 659.25];
+
+    notes.forEach((freq, i) => {
+
+      const osc = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+
+      osc.type = "sine";
+      osc.frequency.value = freq;
+
+      const start =
+        audioContext.currentTime + (i * 0.13);
+
+      gain.gain.setValueAtTime(
+        0.001,
+        start
+      );
+
+      gain.gain.linearRampToValueAtTime(
+        0.09,
+        start + 0.03
+      );
+
+      gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        start + 0.45
+      );
+
+      osc.connect(gain);
+      gain.connect(audioContext.destination);
+
+      osc.start(start);
+      osc.stop(start + 0.5);
+
+    });
+  }
+
+
+
+  /* -------------------------
+     ANSWER
+  ------------------------- */
+
+  function checkAnswer() {
+
+    startAmbient();
+
+    let answer =
+      document.getElementById("answer")
+      .value
+      .trim()
+      .toUpperCase();
+
+    const message =
+      document.getElementById("message");
+
+    /*
+      Prihvatamo:
+      KNJIGE
+      КЊИГЕ
+    */
+
+    if (
+      answer === "KNJIGE" ||
+      answer === "КЊИГЕ"
+    ) {
+
+      successSound();
+
+      document.getElementById("main")
+        .classList.add("glitch");
+
+      setTimeout(() => {
+
+        document.getElementById("main")
+          .style.display = "none";
+
+        document.getElementById("success")
+          .style.display = "block";
+
+      }, 700);
+
+    } else {
+
+      errorSound();
+
+      message.className = "error";
+
+      message.innerHTML =
+        "✕ DEŠIFROVANJE NEUSPEŠNO<br>" +
+        "<span style='font-size:12px;color:#aaa'>" +
+        "Proverite azbuku i pokušajte ponovo." +
+        "</span>";
+
+      setTimeout(() => {
+        message.className = "";
+      }, 400);
+
+    }
+  }
+
+
+  /*
+    ENTER takođe proverava odgovor
+  */
+
+  document.getElementById("answer")
+    .addEventListener("keydown", function(event) {
+
+      if (event.key === "Enter") {
+        checkAnswer();
+      }
+
+    });
+
+</script>
+
+</body>
+</html>
